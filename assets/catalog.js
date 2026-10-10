@@ -1,5 +1,5 @@
 /* ============================================================
-   NEXMOLD catalog data
+   MOLDBRIDGE catalog data
    ------------------------------------------------------------
    !! All prices, lead times, specs and the brand name are
    !! PLACEHOLDERS for review. Edit here; every page reads this file.
@@ -7,9 +7,9 @@
    ============================================================ */
 window.NM = window.NM || {};
 
-NM.brand = "NEXMOLD";
+NM.brand = "MOLDBRIDGE";
 NM.contact = {
-  email: "sales@nexmold.example",
+  email: "sales@moldbridge.example",
   phone: "+86 000 0000 0000",
   address: "Dongguan, Guangdong, China",
 };

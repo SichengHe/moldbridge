@@ -20,7 +20,7 @@ local = f"""<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>NEXMOLD</title>
+<title>MOLDBRIDGE</title>
 <meta name="description" content="{DESC}">
 <meta name="theme-color" content="#0a0f1a">
 {FONTS}
@@ -35,7 +35,7 @@ local = f"""<!doctype html>
 """
 (root / "index.html").write_text(local, encoding="utf-8")
 
-artifact = f"""<title>NEXMOLD</title>
+artifact = f"""<title>MOLDBRIDGE</title>
 {FONTS}
 <style>
 {A("style.css")}

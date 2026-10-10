@@ -1,4 +1,4 @@
-# NEXMOLD site
+# MOLDBRIDGE site
 
 Single-file, hash-routed static site. No build tooling beyond `python3 build.py`.
 
@@ -17,7 +17,7 @@ Routes: `#home`, `#home-origin`, `#products`, `#products-slides`, `#product-SB`,
 - Copy and sections: `_parts/*.body.html`. Then run `python3 build.py`.
 
 ## Placeholders to replace before going live
-- Brand name NEXMOLD and contact details.
+- Brand name MOLDBRIDGE and contact details.
 - All prices, lead times, material/hardness specs, size bands (marked at the top of `catalog.js`).
 - CAD buttons show a toast; link them to real STEP/DWG files.
 - RFQ form builds text + mailto only; connect to a form backend or email API if you want submissions stored.

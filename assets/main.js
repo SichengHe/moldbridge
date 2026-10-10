@@ -1,5 +1,5 @@
 /* ============================================================
-   NEXMOLD — single-file site logic, hash-routed.
+   MOLDBRIDGE — single-file site logic, hash-routed.
    Routes: #home[-anchor]  #products[-family]  #product-<ID>
            #services[-anchor]  #rfq[-design]
    No build step; runs from file://, any static host, or embedded.
