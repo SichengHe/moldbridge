@@ -1,0 +1,2052 @@
+<title>NEXMOLD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Saira:wght@500;600;700&display=swap">
+<style>
+/* ============================================================
+   NEXMOLD — site styles
+   Layout: dark "shop-floor" ground, blueprint grid, molten accent.
+   Display: Saira · Body: IBM Plex Sans · Data: IBM Plex Mono
+   ============================================================ */
+:root {
+  color-scheme: dark;
+  --bg: #0a0f1a;          /* deep graphite navy */
+  --bg-2: #0f1726;        /* raised section */
+  --panel: #141e30;       /* card */
+  --panel-2: #1a2640;     /* hover card */
+  --line: #223049;        /* hairline */
+  --line-2: #2f4160;      /* stronger line */
+  --fg: #e8edf6;
+  --muted: #94a3bf;
+  --dim: #5f6f8c;
+  --accent: #ff6a1a;      /* molten orange: melt / heat */
+  --accent-2: #ffa36b;
+  --blue: #5b8def;        /* blueprint ink */
+  --blue-dim: #2c4f99;
+  --ok: #3dd68c;
+  --warn: #f5c04e;
+
+  --font-display: "Saira", "Barlow", "Arial Narrow", sans-serif;
+  --font-body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", "SF Mono", Menlo, Consolas, monospace;
+
+  --fs-xs: .75rem;
+  --fs-sm: .875rem;
+  --fs-md: 1rem;
+  --fs-lg: 1.125rem;
+  --fs-xl: 1.5rem;
+  --fs-2xl: 2rem;
+  --fs-3xl: clamp(2.4rem, 5.2vw, 4.2rem);
+
+  --radius: 6px;
+  --radius-lg: 10px;
+  --gutter: clamp(16px, 4vw, 40px);
+  --maxw: 1240px;
+  --nav-h: 68px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  line-height: 1.55;
+  overflow-x: hidden;
+}
+img, svg { max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; cursor: pointer; }
+input, select, textarea { font: inherit; color: inherit; }
+h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.1; margin: 0; text-wrap: balance; letter-spacing: -.01em; }
+h1 { font-size: var(--fs-3xl); font-weight: 600; }
+h2 { font-size: clamp(1.8rem, 3.4vw, 2.6rem); font-weight: 600; }
+h3 { font-size: var(--fs-xl); font-weight: 600; }
+p { margin: 0; }
+.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.eyebrow::before { content: "// "; color: var(--dim); }
+.wrap { max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ---------- buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: .5rem;
+  padding: .75rem 1.25rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--line-2);
+  background: transparent;
+  font-family: var(--font-display);
+  font-weight: 600; font-size: var(--fs-sm);
+  letter-spacing: .06em; text-transform: uppercase;
+  transition: background .15s, border-color .15s, transform .15s;
+  white-space: nowrap;
+}
+.btn:hover { background: var(--panel-2); border-color: var(--blue); }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: #140a03; }
+.btn-primary:hover { background: var(--accent-2); border-color: var(--accent-2); }
+.btn-sm { padding: .5rem .85rem; font-size: var(--fs-xs); }
+.btn-block { width: 100%; justify-content: center; }
+.btn svg { width: 16px; height: 16px; }
+
+/* ---------- nav ---------- */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  height: var(--nav-h);
+  background: rgba(10, 15, 26, .78);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+.nav .wrap { display: flex; align-items: center; gap: 2rem; height: 100%; }
+.brand { display: flex; align-items: center; gap: .6rem; font-family: var(--font-display); font-weight: 700; font-size: 1.25rem; letter-spacing: .08em; }
+.brand-mark { width: 30px; height: 30px; flex: none; }
+.brand small { font-family: var(--font-mono); font-weight: 400; font-size: var(--fs-xs); letter-spacing: .08em; color: var(--dim); text-transform: none; display: none; }
+.nav-links { display: flex; gap: 1.6rem; margin-left: auto; list-style: none; padding: 0; margin-block: 0; }
+.nav-links a { font-size: var(--fs-sm); color: var(--muted); position: relative; padding-block: .25rem; }
+.nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--fg); }
+.nav-links a[aria-current="page"]::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 2px; background: var(--accent); }
+.nav-cta { display: flex; gap: .6rem; align-items: center; }
+.rfq-btn { position: relative; }
+.rfq-count {
+  min-width: 18px; height: 18px; padding-inline: 5px;
+  border-radius: 9px; background: var(--accent); color: #140a03;
+  font-family: var(--font-mono); font-size: 11px; font-weight: 600;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.rfq-count[data-n="0"] { background: var(--line-2); color: var(--muted); }
+.nav-toggle { display: none; background: none; border: 1px solid var(--line-2); border-radius: var(--radius); width: 40px; height: 40px; margin-left: auto; }
+.nav-toggle svg { width: 20px; height: 20px; }
+
+@media (max-width: 900px) {
+  .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
+  .nav-links {
+    display: none; position: absolute; left: 0; right: 0; top: var(--nav-h);
+    flex-direction: column; gap: 0; background: var(--bg-2); border-bottom: 1px solid var(--line);
+    padding: .5rem var(--gutter) 1rem;
+  }
+  .nav-links a { display: block; padding: .75rem 0; border-bottom: 1px solid var(--line); font-size: var(--fs-md); }
+  .nav-links a[aria-current="page"]::after { display: none; }
+  .nav.open .nav-links { display: flex; }
+  .nav-cta .btn-quote { display: none; }
+}
+
+/* ---------- hero ---------- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+  background:
+    radial-gradient(900px 500px at 85% 20%, rgba(255,106,26,.14), transparent 60%),
+    radial-gradient(700px 500px at 10% 90%, rgba(91,141,239,.12), transparent 60%),
+    var(--bg);
+}
+.hero::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(91,141,239,.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(91,141,239,.08) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse at 60% 40%, #000 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 60% 40%, #000 30%, transparent 75%);
+}
+.hero .wrap {
+  position: relative;
+  display: grid; grid-template-columns: 1.05fr 1fr; gap: 3rem; align-items: center;
+  padding-block: clamp(3rem, 7vw, 6rem);
+}
+.hero-copy { display: grid; gap: 1.4rem; max-width: 40rem; }
+.hero-copy p.lede { font-size: var(--fs-lg); color: var(--muted); max-width: 34rem; }
+.hero-copy h1 em { font-style: normal; color: var(--accent); }
+.hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 1.2rem 2rem; font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--dim); letter-spacing: .04em; }
+.hero-meta b { color: var(--fg); font-weight: 500; }
+
+.hero-stage { position: relative; aspect-ratio: 1 / 1; max-width: 560px; width: 100%; justify-self: end; }
+.hero-stage canvas { width: 100%; height: 100%; display: block; }
+.hud {
+  position: absolute; font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em;
+  color: var(--muted); background: rgba(10,15,26,.6); border: 1px solid var(--line);
+  padding: .35rem .55rem; border-radius: 4px; backdrop-filter: blur(6px);
+}
+.hud b { color: var(--accent); font-weight: 500; }
+.hud.tl { top: 4%; left: 2%; }
+.hud.tr { top: 4%; right: 2%; text-align: right; }
+.hud.bl { bottom: 4%; left: 2%; }
+.hud.br { bottom: 4%; right: 2%; text-align: right; }
+.hud .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--ok); margin-right: 6px; box-shadow: 0 0 8px var(--ok); }
+
+@media (max-width: 900px) {
+  .hero .wrap { grid-template-columns: 1fr; gap: 2rem; }
+  .hero-stage { justify-self: center; max-width: 440px; }
+}
+
+/* ---------- stat strip ---------- */
+.stats { border-bottom: 1px solid var(--line); background: var(--bg-2); }
+.stats .wrap { display: grid; grid-template-columns: repeat(4, 1fr); }
+.stat { padding: 1.4rem 1.2rem; border-left: 1px solid var(--line); }
+.stat:first-child { border-left: 0; padding-left: 0; }
+.stat .v { font-family: var(--font-display); font-size: var(--fs-2xl); font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; }
+.stat .v span { color: var(--accent); }
+.stat .k { font-size: var(--fs-sm); color: var(--muted); margin-top: .35rem; }
+@media (max-width: 760px) {
+  .stats .wrap { grid-template-columns: 1fr 1fr; }
+  .stat { padding: 1rem; }
+  .stat:nth-child(odd) { border-left: 0; padding-left: 0; }
+  .stat:nth-child(n+3) { border-top: 1px solid var(--line); }
+}
+
+/* ---------- sections ---------- */
+.section { padding-block: clamp(3.5rem, 7vw, 6rem); }
+.section.alt { background: var(--bg-2); border-block: 1px solid var(--line); }
+.section-head { display: grid; gap: .75rem; margin-bottom: 2.4rem; max-width: 46rem; }
+.section-head.row { max-width: none; grid-template-columns: 1fr auto; align-items: end; }
+.section-head p { color: var(--muted); max-width: 40rem; }
+@media (max-width: 700px) { .section-head.row { grid-template-columns: 1fr; } }
+
+/* ---------- category grid ---------- */
+.cat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.cat {
+  background: var(--bg); padding: 1.6rem 1.4rem; display: grid; gap: .9rem; align-content: start;
+  transition: background .15s;
+  position: relative;
+}
+.cat:hover { background: var(--panel); }
+.cat .ic { width: 56px; height: 56px; color: var(--blue); }
+.cat:hover .ic { color: var(--accent); }
+.cat h3 { font-size: var(--fs-lg); }
+.cat p { font-size: var(--fs-sm); color: var(--muted); }
+.cat .n { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--dim); }
+.cat .arrow { position: absolute; top: 1.2rem; right: 1.2rem; width: 18px; height: 18px; color: var(--dim); }
+.cat:hover .arrow { color: var(--accent); }
+@media (max-width: 1000px) { .cat-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .cat-grid { grid-template-columns: 1fr; } }
+
+/* ---------- product cards ---------- */
+.prod-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+.card {
+  background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius-lg);
+  display: grid; grid-template-rows: auto 1fr auto; overflow: hidden; min-width: 0;
+  transition: border-color .15s, transform .15s;
+}
+.card:hover { border-color: var(--blue-dim); transform: translateY(-2px); }
+.card-fig {
+  position: relative; aspect-ratio: 16 / 9; display: grid; place-items: center;
+  background:
+    linear-gradient(rgba(91,141,239,.07) 1px, transparent 1px) 0 0 / 20px 20px,
+    linear-gradient(90deg, rgba(91,141,239,.07) 1px, transparent 1px) 0 0 / 20px 20px,
+    var(--bg-2);
+  border-bottom: 1px solid var(--line);
+}
+.card-fig .ic { width: 84px; height: 84px; color: var(--blue); }
+.card:hover .card-fig .ic { color: var(--accent); }
+.badge {
+  position: absolute; top: .7rem; left: .7rem;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+  padding: .25rem .5rem; border-radius: 3px; background: var(--accent); color: #140a03; font-weight: 600;
+}
+.badge.stock { left: auto; right: .7rem; background: transparent; color: var(--ok); border: 1px solid var(--ok); }
+.card-body { padding: 1rem 1.1rem; display: grid; gap: .5rem; align-content: start; }
+.card-body .sku { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--dim); letter-spacing: .04em; }
+.card-body h3 { font-size: var(--fs-lg); line-height: 1.2; }
+.card-body p { font-size: var(--fs-sm); color: var(--muted); }
+.chips { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .25rem; }
+.chip { font-family: var(--font-mono); font-size: 11px; color: var(--muted); border: 1px solid var(--line-2); border-radius: 3px; padding: .15rem .45rem; white-space: nowrap; }
+.card-foot { display: flex; align-items: center; justify-content: space-between; gap: .5rem; padding: .85rem 1.1rem; border-top: 1px solid var(--line); }
+.price { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-lg); line-height: 1; }
+.price small { font-family: var(--font-mono); font-weight: 400; font-size: var(--fs-xs); color: var(--dim); display: block; margin-top: .2rem; }
+.lead { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--ok); }
+.lead.mto { color: var(--warn); }
+
+/* ---------- feature columns ---------- */
+.feat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem 1.5rem; }
+.feat { display: grid; gap: .6rem; align-content: start; }
+.feat .ic { width: 36px; height: 36px; color: var(--accent); }
+.feat h3 { font-size: var(--fs-lg); }
+.feat p { color: var(--muted); font-size: var(--fs-sm); }
+.feat .spec { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--blue); letter-spacing: .04em; }
+@media (max-width: 900px) { .feat-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .feat-grid { grid-template-columns: 1fr; } }
+
+/* ---------- industries ---------- */
+.ind-row { display: flex; flex-wrap: wrap; gap: .6rem; }
+.ind {
+  font-family: var(--font-display); font-weight: 500; letter-spacing: .04em;
+  padding: .6rem 1rem; border: 1px solid var(--line-2); border-radius: 999px; color: var(--muted); font-size: var(--fs-sm);
+}
+.ind b { color: var(--fg); font-weight: 600; }
+
+/* ---------- process ---------- */
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); counter-reset: step; }
+.step { background: var(--bg-2); padding: 1.6rem 1.4rem; display: grid; gap: .5rem; align-content: start; }
+.step::before { counter-increment: step; content: "0" counter(step); font-family: var(--font-mono); color: var(--accent); font-size: var(--fs-sm); letter-spacing: .1em; }
+.step h3 { font-size: var(--fs-lg); }
+.step p { color: var(--muted); font-size: var(--fs-sm); }
+.step .t { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--blue); }
+@media (max-width: 900px) { .steps { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .steps { grid-template-columns: 1fr; } }
+
+/* ---------- cta band ---------- */
+.cta-band {
+  border-block: 1px solid var(--line);
+  background:
+    radial-gradient(700px 300px at 20% 50%, rgba(255,106,26,.18), transparent 70%),
+    var(--bg-2);
+}
+.cta-band .wrap { display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center; padding-block: 3.5rem; }
+.cta-band p { color: var(--muted); max-width: 36rem; margin-top: .5rem; }
+@media (max-width: 760px) { .cta-band .wrap { grid-template-columns: 1fr; } }
+
+/* ---------- footer ---------- */
+.footer { border-top: 1px solid var(--line); padding-block: 3rem 2rem; font-size: var(--fs-sm); color: var(--muted); }
+.footer .cols { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 2rem; }
+.footer h4 { font-size: var(--fs-sm); letter-spacing: .1em; text-transform: uppercase; color: var(--fg); margin-bottom: .8rem; }
+.footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: .45rem; }
+.footer a:hover { color: var(--fg); }
+.footer .bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; margin-top: 2.5rem; padding-top: 1.2rem; border-top: 1px solid var(--line); font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--dim); }
+@media (max-width: 800px) { .footer .cols { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 480px) { .footer .cols { grid-template-columns: 1fr; } }
+
+/* ---------- page header ---------- */
+.page-head { padding-block: 2.5rem 1.5rem; border-bottom: 1px solid var(--line); background: var(--bg-2); }
+.page-head h1 { font-size: clamp(2rem, 4vw, 3rem); }
+.page-head p { color: var(--muted); margin-top: .5rem; max-width: 44rem; }
+.crumbs { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--dim); display: flex; gap: .5rem; margin-bottom: .8rem; flex-wrap: wrap; }
+.crumbs a:hover { color: var(--fg); }
+
+/* ---------- catalog layout ---------- */
+.catalog { display: grid; grid-template-columns: 250px 1fr; gap: 2rem; padding-block: 2rem 4rem; align-items: start; }
+.filters { position: sticky; top: calc(var(--nav-h) + 1rem); display: grid; gap: 1.4rem; }
+.filters fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: .4rem; }
+.filters legend { font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: .12em; text-transform: uppercase; color: var(--dim); margin-bottom: .5rem; }
+.filters label { display: flex; align-items: center; gap: .55rem; font-size: var(--fs-sm); color: var(--muted); cursor: pointer; padding: .2rem 0; }
+.filters label:hover { color: var(--fg); }
+.filters input[type="checkbox"], .filters input[type="radio"] { accent-color: var(--accent); width: 15px; height: 15px; margin: 0; }
+.filters label .n { margin-left: auto; font-family: var(--font-mono); font-size: 11px; color: var(--dim); }
+.field { display: grid; gap: .35rem; }
+.field label, .field .lbl { font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: .1em; text-transform: uppercase; color: var(--dim); }
+.input, .select, textarea.input {
+  width: 100%; background: var(--bg); border: 1px solid var(--line-2); border-radius: var(--radius);
+  padding: .6rem .75rem; color: var(--fg); font-size: var(--fs-sm); min-width: 0;
+}
+.input:focus, .select:focus, textarea.input:focus { border-color: var(--blue); outline: none; }
+.select { appearance: none; -webkit-appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%); background-position: calc(100% - 16px) 50%, calc(100% - 11px) 50%; background-size: 5px 5px; background-repeat: no-repeat; padding-right: 2rem; }
+.toolbar { display: flex; flex-wrap: wrap; gap: .75rem 1rem; align-items: center; justify-content: space-between; margin-bottom: 1.2rem; }
+.toolbar .count { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--muted); }
+.toolbar .count b { color: var(--fg); font-weight: 500; }
+.search { position: relative; flex: 1 1 260px; max-width: 420px; }
+.search svg { position: absolute; left: .7rem; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--dim); }
+.search .input { padding-left: 2.2rem; }
+.empty { padding: 3rem 1rem; text-align: center; color: var(--muted); border: 1px dashed var(--line-2); border-radius: var(--radius-lg); }
+@media (max-width: 860px) {
+  .catalog { grid-template-columns: 1fr; }
+  .filters { position: static; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+}
+
+/* ---------- product detail ---------- */
+.detail { display: grid; grid-template-columns: 1.1fr 1fr; gap: 2.5rem; padding-block: 2rem 3rem; align-items: start; }
+.drawing {
+  position: sticky; top: calc(var(--nav-h) + 1rem);
+  border: 1px solid var(--line); border-radius: var(--radius-lg); background:
+    linear-gradient(rgba(91,141,239,.07) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, rgba(91,141,239,.07) 1px, transparent 1px) 0 0 / 24px 24px,
+    var(--bg-2);
+  padding: 1.2rem; overflow: hidden;
+}
+.drawing svg { width: 100%; height: auto; display: block; }
+.drawing .cap { display: flex; justify-content: space-between; gap: 1rem; margin-top: .8rem; font-family: var(--font-mono); font-size: 11px; color: var(--dim); letter-spacing: .06em; flex-wrap: wrap; }
+.dline { stroke: var(--blue); stroke-width: 1.2; fill: none; }
+.dthin { stroke: var(--blue-dim); stroke-width: .8; fill: none; }
+.dfill { fill: rgba(91,141,239,.08); stroke: var(--blue); stroke-width: 1.2; }
+.ddim { stroke: var(--accent); stroke-width: 1; fill: none; }
+.dtext { fill: var(--fg); font-family: var(--font-mono); font-size: 11px; }
+.dtext.acc { fill: var(--accent); }
+.dtext.dim { fill: var(--dim); font-size: 10px; }
+.dcenter { stroke: var(--dim); stroke-width: .7; stroke-dasharray: 10 3 2 3; fill: none; }
+
+.buy { display: grid; gap: 1.4rem; }
+.buy .title { display: grid; gap: .5rem; }
+.buy .title .sku { font-family: var(--font-mono); font-size: var(--fs-sm); color: var(--accent); letter-spacing: .06em; }
+.buy .title p { color: var(--muted); }
+.config { border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--panel); padding: 1.2rem; display: grid; gap: 1rem; }
+.config h3 { font-size: var(--fs-md); letter-spacing: .06em; text-transform: uppercase; }
+.config .opts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: .8rem; }
+.config .out { display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: end; padding-top: 1rem; border-top: 1px solid var(--line); }
+.config .out .pn { font-family: var(--font-mono); font-size: var(--fs-lg); color: var(--fg); word-break: break-all; }
+.config .out .pn-l { font-family: var(--font-mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); }
+.config .out .pr { font-family: var(--font-display); font-size: var(--fs-2xl); font-weight: 600; line-height: 1; text-align: right; }
+.config .out .pr small { display: block; font-family: var(--font-mono); font-weight: 400; font-size: var(--fs-xs); color: var(--muted); margin-top: .3rem; }
+.qty { display: flex; align-items: center; border: 1px solid var(--line-2); border-radius: var(--radius); overflow: hidden; width: fit-content; }
+.qty button { width: 38px; height: 40px; background: var(--bg); border: 0; font-size: 1.1rem; }
+.qty button:hover { background: var(--panel-2); }
+.qty input { width: 64px; height: 40px; text-align: center; border: 0; border-inline: 1px solid var(--line-2); background: var(--bg); font-family: var(--font-mono); }
+.buy-row { display: flex; flex-wrap: wrap; gap: .8rem; align-items: center; }
+.spec-table { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); }
+.spec-table th, .spec-table td { text-align: left; padding: .6rem .5rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+.spec-table th { font-family: var(--font-mono); font-weight: 400; font-size: var(--fs-xs); letter-spacing: .06em; text-transform: uppercase; color: var(--dim); width: 38%; }
+.spec-table td { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.dl-row { display: flex; flex-wrap: wrap; gap: .5rem; }
+.notes { font-size: var(--fs-sm); color: var(--muted); border-left: 2px solid var(--accent); padding-left: .9rem; }
+@media (max-width: 900px) {
+  .detail { grid-template-columns: 1fr; }
+  .drawing { position: static; }
+}
+
+/* ---------- RFQ page ---------- */
+.rfq-layout { display: grid; grid-template-columns: 1.2fr 1fr; gap: 2.5rem; padding-block: 2rem 4rem; align-items: start; }
+.rfq-list { display: grid; gap: .75rem; }
+.rfq-item { display: grid; grid-template-columns: 1fr auto auto; gap: 1rem; align-items: center; padding: 1rem; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--panel); }
+.rfq-item .pn { font-family: var(--font-mono); font-size: var(--fs-sm); color: var(--accent); }
+.rfq-item .nm { font-weight: 500; }
+.rfq-item .cf { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--muted); }
+.rfq-item .rm { background: none; border: 1px solid var(--line-2); border-radius: var(--radius); width: 34px; height: 34px; color: var(--muted); }
+.rfq-item .rm:hover { color: var(--fg); border-color: var(--accent); }
+.rfq-form { display: grid; gap: 1rem; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--panel); padding: 1.4rem; }
+.rfq-form .two { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.rfq-form textarea { min-height: 110px; resize: vertical; }
+.rfq-out { display: none; gap: .8rem; }
+.rfq-out.show { display: grid; }
+.rfq-out textarea { min-height: 220px; font-family: var(--font-mono); font-size: var(--fs-xs); }
+.rfq-summary { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--muted); display: flex; justify-content: space-between; gap: 1rem; padding: .5rem 0; }
+@media (max-width: 860px) { .rfq-layout { grid-template-columns: 1fr; } .rfq-form .two { grid-template-columns: 1fr; } }
+@media (max-width: 480px) { .rfq-item { grid-template-columns: 1fr auto; } .rfq-item .qty { grid-column: 1; } }
+
+/* ---------- about ---------- */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+.about-grid .prose { display: grid; gap: 1rem; color: var(--muted); max-width: 38rem; }
+.about-grid .prose strong { color: var(--fg); }
+.equip { list-style: none; padding: 0; margin: 0; display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.equip li { background: var(--bg); display: grid; grid-template-columns: 1fr auto; gap: 1rem; padding: .9rem 1rem; font-size: var(--fs-sm); }
+.equip li span:last-child { font-family: var(--font-mono); color: var(--blue); font-size: var(--fs-xs); white-space: nowrap; }
+.contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.contact-grid > div { background: var(--bg-2); padding: 1.4rem; display: grid; gap: .4rem; }
+.contact-grid h3 { font-size: var(--fs-md); letter-spacing: .06em; text-transform: uppercase; }
+.contact-grid p { color: var(--muted); font-size: var(--fs-sm); }
+.contact-grid .mono { color: var(--fg); }
+@media (max-width: 860px) { .about-grid { grid-template-columns: 1fr; } .contact-grid { grid-template-columns: 1fr; } }
+
+/* ---------- toast ---------- */
+.toast {
+  position: fixed; left: 50%; bottom: 1.5rem; transform: translate(-50%, 20px);
+  background: var(--panel-2); border: 1px solid var(--line-2); color: var(--fg);
+  padding: .7rem 1rem; border-radius: var(--radius); font-size: var(--fs-sm);
+  opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; z-index: 100;
+  max-width: calc(100vw - 32px); box-shadow: 0 10px 30px rgba(0,0,0,.4);
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+.toast b { color: var(--accent); font-weight: 500; }
+
+/* ---------- reveal ---------- */
+.reveal { transform: translateY(14px); transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+.reveal.in { transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { transform: none; transition: none; }
+  .card:hover { transform: none; }
+}
+
+/* ---------- additions: figures, calculators, flagship ---------- */
+.card-fig .ic { width: 66%; max-width: 230px; height: auto; color: var(--blue); }
+.card-fig .ic svg { width: 100%; height: auto; display: block; }
+.fig-big { width: 100%; color: var(--blue); padding: 1rem 0; }
+.fig-big svg { width: 100%; height: auto; }
+.feat-grid.three { grid-template-columns: repeat(3, 1fr); }
+.cat-grid.five { grid-template-columns: repeat(5, 1fr); }
+@media (max-width: 1000px) { .feat-grid.three { grid-template-columns: 1fr; } .cat-grid.five { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .cat-grid.five { grid-template-columns: 1fr; } }
+.hint { font-family: var(--font-mono); font-size: 10px; color: var(--dim); letter-spacing: .02em; text-transform: none; }
+.err { color: var(--warn); font-size: var(--fs-sm); font-family: var(--font-mono); }
+.chip-acc { border-color: var(--accent); color: var(--accent); }
+.chip-ok { border-color: var(--ok); color: var(--ok); }
+.chip-warn { border-color: var(--warn); color: var(--warn); }
+.calc { border-top: 1px solid var(--line); padding-top: 1rem; display: grid; gap: .8rem; }
+.calc-h { font-family: var(--font-display); font-weight: 600; letter-spacing: .06em; text-transform: uppercase; font-size: var(--fs-sm); display: flex; flex-wrap: wrap; gap: .4rem .8rem; align-items: baseline; }
+.calc-out { font-size: var(--fs-xs); color: var(--muted); line-height: 1.7; }
+.calc-out b { color: var(--fg); font-weight: 500; }
+.calc-out .ok { color: var(--ok); }
+.calc-out .bad { color: var(--warn); }
+.config .out .pr small { white-space: normal; }
+
+/* SVG figure classes (inline, so CSS animations reach them) */
+.s-acc { stroke: var(--accent); }
+.f-acc { fill: rgba(255,106,26,.12); }
+.t-dim { fill: var(--dim); stroke: none; font-family: var(--font-mono); font-size: 7.5px; letter-spacing: .12em; }
+.t-num { fill: var(--accent); stroke: none; font-family: var(--font-mono); font-size: 10.5px; }
+.a-shift-x { animation: nmShiftX 3s ease-in-out infinite alternate; }
+.a-cam { animation: nmCam 3s ease-in-out infinite alternate; }
+.a-lift { animation: nmLift 4s ease-in-out infinite; }
+.a-tilt { transform-box: fill-box; transform-origin: 50% 100%; animation: nmTilt 4s ease-in-out infinite; }
+.a-stage1 { animation: nmStage1 5s ease-in-out infinite; }
+.a-stage2 { animation: nmStage2 5s ease-in-out infinite; }
+.a-lift-sm { animation: nmLiftSm 3.5s ease-in-out infinite alternate; }
+.a-lift-lg { animation: nmLiftLg 3.5s ease-in-out infinite alternate; }
+.a-pulse, .a-wave { animation: nmPulse 2.4s ease-in-out infinite; }
+.a-spin { transform-box: view-box; transform-origin: 80px 50px; animation: nmSpin 24s linear infinite; }
+.a-blink { animation: nmBlink 1s steps(2, end) infinite; }
+.a-flow { animation: nmFlow 6s linear infinite; }
+.a-balance { animation: nmBal 4s ease-in-out infinite alternate; }
+.a-spring-top { transform-box: view-box; transform-origin: 56px 14px; animation: nmSprT 4s ease-in-out infinite alternate; }
+.a-spring-bot { transform-box: view-box; transform-origin: 56px 86px; animation: nmSprB 4s ease-in-out infinite alternate; }
+.a-sag { animation: nmSag 4s ease-in-out infinite; }
+.a-hold { animation: nmHold 4s ease-in-out infinite; }
+@keyframes nmShiftX { to { transform: translateX(22px); } }
+@keyframes nmCam { to { transform: translateX(-14px); } }
+@keyframes nmLift { 0%, 15% { transform: none; } 45%, 60% { transform: translateY(-24px); } 90%, 100% { transform: none; } }
+@keyframes nmTilt { 0%, 15% { transform: none; } 45%, 60% { transform: rotate(12deg); } 90%, 100% { transform: none; } }
+@keyframes nmStage1 { 0%, 18% { transform: none; } 38%, 70% { transform: translateY(-12px); } 90%, 100% { transform: none; } }
+@keyframes nmStage2 { 0%, 18% { transform: none; } 38%, 44% { transform: translateY(-12px); } 60%, 70% { transform: translateY(-26px); } 90%, 100% { transform: none; } }
+@keyframes nmLiftSm { to { transform: translateY(-10px); } }
+@keyframes nmLiftLg { to { transform: translateY(-20px); } }
+@keyframes nmPulse { 0%, 100% { opacity: .35; } 50% { opacity: 1; } }
+@keyframes nmSpin { to { transform: rotate(360deg); } }
+@keyframes nmBlink { 50% { opacity: .2; } }
+@keyframes nmFlow { to { stroke-dashoffset: -70; } }
+@keyframes nmBal { to { transform: translateY(12px); } }
+@keyframes nmSprT { to { transform: scaleY(1.5); } }
+@keyframes nmSprB { to { transform: scaleY(.5); } }
+@keyframes nmSag { 0%, 20% { transform: none; } 45%, 70% { transform: translateY(14px); } 90%, 100% { transform: none; } }
+@keyframes nmHold { 0%, 20% { transform: none; } 45%, 70% { transform: translateY(0.5px); } 90%, 100% { transform: none; } }
+@media (prefers-reduced-motion: reduce) { [class^="a-"], [class*=" a-"] { animation: none !important; } }
+
+/* ---------- flagship block ---------- */
+.flag { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; }
+.flag-copy { display: grid; gap: 1.2rem; }
+.flag-copy h2 { font-size: clamp(1.8rem, 3.2vw, 2.6rem); }
+.flag-copy .sku { font-family: var(--font-mono); color: var(--accent); font-size: var(--fs-sm); letter-spacing: .08em; }
+.flag-copy p { color: var(--muted); }
+.flag-copy dl { display: grid; grid-template-columns: auto 1fr; gap: .4rem 1rem; margin: 0; font-size: var(--fs-sm); }
+.flag-copy dt { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--dim); letter-spacing: .06em; text-transform: uppercase; padding-top: .15rem; }
+.flag-copy dd { margin: 0; color: var(--fg); font-family: var(--font-mono); }
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; }
+.compare > div { background: var(--bg-2); padding: 1.1rem; display: grid; gap: .6rem; }
+.compare .lbl { font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: .12em; text-transform: uppercase; color: var(--dim); display: flex; justify-content: space-between; gap: .5rem; }
+.compare .lbl b { font-weight: 500; }
+.compare .lbl .bad { color: var(--warn); }
+.compare .lbl .good { color: var(--ok); }
+.compare svg { width: 100%; height: auto; color: var(--blue); display: block; }
+.compare p { font-size: var(--fs-sm); color: var(--muted); }
+.s-warn { stroke: var(--warn); } .s-ok { stroke: var(--ok); }
+.flag-tools { display: grid; gap: .8rem; }
+.sizer { border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--panel); padding: 1.1rem; display: grid; gap: .8rem; }
+.sizer .row { display: grid; grid-template-columns: 1fr auto; gap: .8rem; align-items: end; }
+.sizer-out { font-family: var(--font-mono); font-size: var(--fs-sm); color: var(--muted); }
+.sizer-out b { color: var(--fg); font-weight: 500; }
+.sizer-out .pn { color: var(--accent); font-size: var(--fs-lg); }
+.bands { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+.band { font-family: var(--font-mono); font-size: 10px; text-align: center; padding: .4rem .2rem; border: 1px solid var(--line-2); border-radius: 3px; color: var(--dim); }
+.band.on { border-color: var(--accent); color: var(--accent); background: rgba(255,106,26,.08); }
+.band b { display: block; font-size: var(--fs-sm); color: inherit; }
+@media (max-width: 900px) { .flag { grid-template-columns: 1fr; } }
+@media (max-width: 480px) { .compare { grid-template-columns: 1fr; } }
+
+/* ---------- catalog-origin steps (problem → standard part) ---------- */
+.origin { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: center; }
+.origin .prose { display: grid; gap: 1rem; color: var(--muted); }
+.origin .prose strong { color: var(--fg); }
+@media (max-width: 900px) { .origin { grid-template-columns: 1fr; } }
+
+/* ---------- SPA views ---------- */
+[hidden] { display: none !important; }
+main[data-view] { display: block; }
+.nav { top: env(safe-area-inset-top, 0px); }
+.story { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; }
+.story > div { background: var(--bg-2); padding: 1rem 1.1rem; display: grid; gap: .4rem; align-content: start; }
+.story .lbl { font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+.story p { font-size: var(--fs-sm); color: var(--muted); }
+@media (max-width: 600px) { .story { grid-template-columns: 1fr; } }
+
+</style>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#home" aria-label="NEXMOLD home">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="4" width="26" height="10" rx="1.5" fill="none" stroke="currentColor" stroke-width="2"/><rect x="3" y="18" width="26" height="10" rx="1.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 16h16" stroke="#ff6a1a" stroke-width="2.5" stroke-linecap="round"/></svg>
+      <span data-brand>NEXMOLD</span>
+    </a>
+    <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <ul class="nav-links">
+      <li><a href="#products">Components</a></li>
+      <li><a href="#services">Design → Mold</a></li>
+      <li><a href="#home-origin">How parts get made</a></li>
+      <li><a href="#home-contact">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a class="btn btn-sm rfq-btn" href="#rfq">RFQ <span class="rfq-count" data-n="0">0</span></a>
+      <a class="btn btn-sm btn-primary btn-quote" href="#rfq-design">Send a part</a>
+    </div>
+  </div>
+</header>
+
+<main data-view="home">
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="eyebrow">Standard components · Mold design · Dongguan</span>
+      <h1>Mold problems, solved as <em>standard parts</em>.</h1>
+      <p class="lede">A heavy slide sags. A lifter galls. A deep rib will not vent. Every shop patches these with a one-off fix. We design the fix once, size it S to XL, and put it in the catalog with a drawing and a STEP file.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#products">Browse components</a>
+        <a class="btn" href="#rfq-design">Send a part for DFM</a>
+      </div>
+      <div class="hero-meta">
+        <span><b>12</b> component families</span>
+        <span>DFM reply <b>48 h</b></span>
+        <span>Stock parts ship <b>3–5 days</b></span>
+      </div>
+    </div>
+    <div class="hero-stage" aria-label="Animated wireframe of a two-plate mold opening, ejecting and closing">
+      <canvas id="hero-canvas"></canvas>
+      <div class="hud tl"><span class="dot"></span>2-PLATE · 300 × 300 · PP</div>
+      <div class="hud tr">CYCLE <b id="hud-cycle">1 204 317</b></div>
+      <div class="hud bl">PARTING LINE <b id="hud-gap">CLOSED</b></div>
+      <div class="hud br"><b id="hud-state">INJECT / HOLD</b></div>
+    </div>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="wrap">
+    <div class="stat"><div class="v">±5<span>%</span></div><div class="k">balance error over the full stroke, SB slide balancer</div></div>
+    <div class="stat"><div class="v">80<span> kg</span></div><div class="k">slide mass carried without a counterweight</div></div>
+    <div class="stat"><div class="v">48<span> h</span></div><div class="k">from part file to DFM report</div></div>
+    <div class="stat"><div class="v">1×10<span>⁶</span></div><div class="k">rated cycles on every mechanical unit</div></div>
+  </div>
+</section>
+
+<section class="section" id="balancer">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Flagship · new for 2026</span>
+      <h2>Dual-spring slide balancer</h2>
+      <p>The part that started the catalog. A slide that travels vertically on the press has to fight its own weight. The SB cancels that weight, so the slide, retainer and angle pin can be designed as if gravity were not there.</p>
+    </div>
+    <div class="flag">
+      <div class="flag-copy reveal">
+        <div class="sku">SB · sizes S–XL · stroke 20–120 mm · 100 % mechanical</div>
+        <div class="compare">
+          <div>
+            <div class="lbl"><span>Without</span><b class="bad">slide drops, Δ ≠ 0</b></div>
+            <svg viewBox="0 0 220 150" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-label="Slide sags when the angle pin releases it">
+              <path d="M40 12v126"/><path d="M40 12h-14v126h14" opacity=".4"/>
+              <path d="M150 18l-44 56" stroke-dasharray="4 4" opacity=".5"/>
+              <rect x="44" y="52" width="48" height="34" rx="2" stroke-dasharray="3 3" opacity=".45"/>
+              <g class="a-sag"><rect class="s-acc f-acc" x="44" y="52" width="48" height="34" rx="2"/><path d="M44 69h48" opacity=".35"/><path class="s-warn" d="M96 86h12"/></g>
+              <path class="s-warn" d="M96 86h12" opacity=".5"/><text x="112" y="98" class="t-dim">Δ</text>
+              <path d="M130 58v40" class="s-warn"/><path d="M125 93l5 5 5-5" class="s-warn"/>
+              <text x="138" y="82" class="t-dim">m·g</text>
+              <text x="60" y="132" class="t-dim">ANGLE PIN OUT</text>
+            </svg>
+            <p>Once the angle pin leaves the slide, nothing holds it but the retainer. It drifts down, the retainer wears, and the pin takes a side load on every close.</p>
+          </div>
+          <div>
+            <div class="lbl"><span>With SB</span><b class="good">held, Δ = 0</b></div>
+            <svg viewBox="0 0 220 150" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-label="Two springs hold the slide in place">
+              <path d="M40 12v126"/><path d="M40 12h-14v126h14" opacity=".4"/>
+              <path d="M150 18l-44 56" stroke-dasharray="4 4" opacity=".5"/>
+              <rect x="44" y="20" width="20" height="98" rx="2" opacity=".6"/>
+              <path class="s-acc" d="M54 24v2l5 3-10 3 10 3-10 3 10 3-5 3v2"/>
+              <path class="s-acc" d="M54 114v-2l5-3-10-3 10-3-10-3 10-3-5-3v-2"/>
+              <path class="s-acc" d="M54 46v46"/>
+              <g class="a-hold"><rect class="s-acc f-acc" x="66" y="52" width="48" height="34" rx="2"/><path class="s-acc" d="M60 66h6v6h-6z"/></g>
+              <path d="M130 58v40" class="s-ok" opacity=".8"/><path d="M125 93l5 5 5-5" class="s-ok" opacity=".8"/>
+              <path d="M152 98V58" class="s-ok" opacity=".8"/><path d="M147 63l5-5 5 5" class="s-ok" opacity=".8"/>
+              <text x="134" y="82" class="t-dim">m·g</text><text x="158" y="82" class="t-dim">F</text>
+              <text x="60" y="132" class="t-dim">ΣF = 0 · ANY POSITION</text>
+            </svg>
+            <p>Two opposed die springs push on a floating rod bolted to the slide back. Preload equals the slide weight at mid-stroke and stays within ±5 % over the travel.</p>
+          </div>
+        </div>
+        <dl>
+          <dt>Replaces</dt><dd>counterweight · tuned spring plunger · oversized retainer</dd>
+          <dt>Pocket</dt><dd>one standard pocket per size, 4 bolts from the slide back</dd>
+          <dt>Service</dt><dd>springs swap from the parting line, no slide removal</dd>
+        </dl>
+      </div>
+      <div class="flag-tools reveal">
+        <div class="sizer">
+          <div class="calc-h">Size it <span class="hint">enter the slide mass, we pick the unit</span></div>
+          <div class="row">
+            <div class="field"><label for="sz-m">Slide mass (kg)</label><input class="input" id="sz-m" type="number" min="0" step="0.5" value="9"></div>
+            <div class="field"><label for="sz-s">Stroke (mm)</label><select class="select" id="sz-s"><option>20</option><option>40</option><option selected>60</option><option>80</option><option>100</option><option>120</option></select></div>
+          </div>
+          <div class="bands" aria-label="Size bands">
+            <div class="band" data-size="S"><b>S</b>2–6 kg</div>
+            <div class="band" data-size="M"><b>M</b>5–15 kg</div>
+            <div class="band" data-size="L"><b>L</b>12–35 kg</div>
+            <div class="band" data-size="XL"><b>XL</b>30–80 kg</div>
+          </div>
+          <div class="sizer-out" id="sz-out"></div>
+          <a class="btn btn-primary btn-block" id="sz-go" href="#product-SB">Configure the SB</a>
+        </div>
+        <p class="notes">Slide travelling at an angle to vertical? Use the angle field on the product page; the balancer only has to carry the weight component along the travel.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="what">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">What we do</span>
+      <h2>Between the part design and the mold.</h2>
+      <p>Three things, and they feed each other. Problems we meet in mold design become components. Components we make shape how we design molds.</p>
+    </div>
+    <div class="feat-grid three">
+      <div class="feat reveal">
+        <svg class="ic" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="8" width="28" height="9" rx="1.5"/><rect x="4" y="19" width="28" height="9" rx="1.5"/><path d="M10 17v2M26 17v2"/></svg>
+        <h3>Standard components</h3>
+        <p>Twelve designs across slides, ejection, guiding, traceability and venting. Every one is a problem we have solved more than once, drawn as a sized series with one part-number logic.</p>
+        <span class="spec">STOCK SIZES SHIP IN 3–5 DAYS</span>
+      </div>
+      <div class="feat reveal">
+        <svg class="ic" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 28L18 6l12 22z"/><path d="M12 28l6-11 6 11"/><path d="M4 32h28"/></svg>
+        <h3>Mold design</h3>
+        <p>DFM review of your part in 48 hours, then the full mold: layout, steel, cooling, ejection, slides and a BOM that calls standard parts by number. NX or SolidWorks, Moldflow on request.</p>
+        <span class="spec">3D ASSEMBLY · 2D DRAWINGS · BOM</span>
+      </div>
+      <div class="feat reveal">
+        <svg class="ic" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 30V12l12-6 12 6v18"/><path d="M6 12l12 6 12-6M18 18v12"/></svg>
+        <h3>Build &amp; trial</h3>
+        <p>Build at partner toolrooms under our drawings, core and cavity checked on CMM, T0/T1 attended by the engineer who designed the mold. You get a measured sample report, not a photo.</p>
+        <span class="spec">T1 IN 25–35 WORKING DAYS FROM DESIGN RELEASE</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="families">
+  <div class="wrap">
+    <div class="section-head row">
+      <div>
+        <span class="eyebrow">Component families</span>
+        <h2>Five families, twelve designs.</h2>
+      </div>
+      <a class="btn" href="#products">All components</a>
+    </div>
+    <div class="cat-grid five">
+      <a class="cat reveal" href="#products-slides">
+        <svg class="ic" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="34" width="44" height="8"/><rect x="14" y="20" width="18" height="14" rx="1"/><path d="M40 10l-14 24"/></svg>
+        <h3>Slides &amp; undercuts</h3><p>Balancer, retainer, mini slide, flex lifter.</p>
+        <span class="n" data-fam-count="slides">4 products</span>
+        <svg class="arrow" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 14L14 4M7 4h7v7"/></svg>
+      </a>
+      <a class="cat reveal" href="#products-ejection">
+        <svg class="ic" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="40" width="40" height="6"/><rect x="8" y="32" width="40" height="6"/><path d="M18 32V10M28 32V14M38 32V10"/></svg>
+        <h3>Ejection</h3><p>Two-stage, accelerated, one-piece stepped pins.</p>
+        <span class="n" data-fam-count="ejection">3 products</span>
+        <svg class="arrow" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 14L14 4M7 4h7v7"/></svg>
+      </a>
+      <a class="cat reveal" href="#products-guiding">
+        <svg class="ic" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="16" y="14" width="24" height="28" rx="3"/><path d="M4 24h48M4 32h48"/><circle cx="22" cy="20" r="1.5" fill="currentColor"/><circle cx="34" cy="20" r="1.5" fill="currentColor"/><circle cx="28" cy="36" r="1.5" fill="currentColor"/></svg>
+        <h3>Guiding &amp; wear</h3><p>Self-lube bushings, no grease on the part.</p>
+        <span class="n" data-fam-count="guiding">1 product</span>
+        <svg class="arrow" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 14L14 4M7 4h7v7"/></svg>
+      </a>
+      <a class="cat reveal" href="#products-trace">
+        <svg class="ic" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="28" cy="28" r="18"/><circle cx="28" cy="28" r="7"/><path d="M28 21v-8M28 10v3M46 28h-3M10 28h3M28 46v-3"/></svg>
+        <h3>Traceability</h3><p>Date stamps and a counter that reports.</p>
+        <span class="n" data-fam-count="trace">2 products</span>
+        <svg class="arrow" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 14L14 4M7 4h7v7"/></svg>
+      </a>
+      <a class="cat reveal" href="#products-venting">
+        <svg class="ic" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="30" width="40" height="16"/><path d="M18 30V14M28 30V10M38 30V14" stroke-dasharray="3 3"/><circle cx="16" cy="38" r="1.2" fill="currentColor"/><circle cx="24" cy="38" r="1.2" fill="currentColor"/><circle cx="32" cy="38" r="1.2" fill="currentColor"/><circle cx="40" cy="38" r="1.2" fill="currentColor"/></svg>
+        <h3>Venting &amp; cooling</h3><p>Sintered vents, block cylinders with sensing.</p>
+        <span class="n" data-fam-count="venting">2 products</span>
+        <svg class="arrow" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 14L14 4M7 4h7v7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="new">
+  <div class="wrap">
+    <div class="section-head row">
+      <div>
+        <span class="eyebrow">New for 2026</span>
+        <h2>This year's additions.</h2>
+      </div>
+      <a class="btn" href="#products">See all 12</a>
+    </div>
+    <div class="prod-grid" id="featured"></div>
+  </div>
+</section>
+
+<section class="section" id="origin">
+  <div class="wrap">
+    <div class="origin">
+      <div class="prose reveal">
+        <span class="eyebrow">How a part gets into the catalog</span>
+        <h2>From a floor fix to a part number.</h2>
+        <p><strong>We do not start from a product idea. We start from a mold that is giving someone trouble.</strong> The balancer began as a counterweight welded onto a 22 kg slide in a customer's tool. It worked, it was ugly, and the next mold needed a different one.</p>
+        <p>So we drew the mechanism as a cartridge, set the spring preload from the slide mass instead of by trial, ran it on the live mold for a full maintenance interval, then sized it S to XL. Now it is a part number with a pocket drawing, and the next slide takes an afternoon instead of a week.</p>
+        <p>Every component on this site went through the same four steps. If you have a mold with a recurring problem and no standard part for it, that is exactly what we want to hear about.</p>
+        <a class="btn" href="#rfq-design">Describe the problem</a>
+      </div>
+      <div class="steps reveal">
+        <div class="step"><h3>Problem on the floor</h3><p>A slide that sags, a lifter that galls, a rib that burns. Seen on a customer mold or on one we designed.</p><span class="t">INPUT: THE MOLD, THE CYCLE DATA</span></div>
+        <div class="step"><h3>Fix on a live mold</h3><p>We design the fix for that one tool and run it in production for a full PM interval, with cycle counts logged.</p><span class="t">OUTPUT: A PROVEN ONE-OFF</span></div>
+        <div class="step"><h3>Serialize</h3><p>Sizes S to XL, one pocket drawing per size, one part-number logic. Materials and tolerances fixed.</p><span class="t">OUTPUT: DRAWING SET + TEST REPORT</span></div>
+        <div class="step"><h3>Catalog</h3><p>STEP and 2D for every size, specs, a sizing tool on the product page, and stock of the common sizes.</p><span class="t">OUTPUT: A PART NUMBER YOU CAN ORDER</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="industries">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Where the parts run</span>
+      <h2>Molds we design for.</h2>
+    </div>
+    <div class="ind-row">
+      <span class="ind"><b>Consumer electronics</b> · housings, bezels, thin walls</span>
+      <span class="ind"><b>Medical</b> · grease-free guiding, clean-room ejection</span>
+      <span class="ind"><b>Automotive interior</b> · large slides, grained faces</span>
+      <span class="ind"><b>Packaging</b> · high cycle counts, two-stage ejection</span>
+      <span class="ind"><b>Housewares</b> · deep draws, vertical slides</span>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap">
+    <div>
+      <h2>Send us a part. We send back a mold plan.</h2>
+      <p>STEP file, resin, volume and press. Within 48 hours you get a marked-up model, a parting and gating proposal, and the component list the mold would use.</p>
+    </div>
+    <a class="btn btn-primary" href="#rfq-design">Start a project</a>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Contact</span>
+      <h2>Talk to the engineer, not a form.</h2>
+    </div>
+    <div class="contact-grid">
+      <div><h3>Email</h3><p class="mono" data-contact="email">sales@nexmold.example</p><p>Drawings and STEP files welcome. We reply the same working day.</p></div>
+      <div><h3>Phone / WeChat</h3><p class="mono" data-contact="phone">+86 000 0000 0000</p><p>Mon–Sat 08:30–18:00 CST. English and Chinese.</p></div>
+      <div><h3>Visit</h3><p data-contact="address">Dongguan, Guangdong, China</p><p>Design office and component stock. Partner toolrooms within 40 km.</p></div>
+    </div>
+  </div>
+</section>
+
+</main>
+<main data-view="products" hidden>
+<section class="page-head">
+  <div class="wrap">
+    <div class="crumbs"><a href="#home">Home</a><span>/</span><span>Components</span></div>
+    <h1>Components</h1>
+    <p>Twelve designs, each a standard answer to a problem that used to need a custom fix. Pick a size on the product page and you get a part number, a price and a lead time.</p>
+  </div>
+</section>
+<div class="wrap catalog">
+  <aside class="filters" aria-label="Filters">
+    <fieldset id="fam-filters"><legend>Family</legend></fieldset>
+    <fieldset>
+      <legend>Show only</legend>
+      <label><input type="checkbox" id="only-new"> New for 2026</label>
+      <label><input type="checkbox" id="only-stock"> In stock</label>
+    </fieldset>
+    <button class="btn btn-sm" id="clear" type="button">Clear filters</button>
+  </aside>
+  <div>
+    <div class="toolbar">
+      <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input class="input" id="q" type="search" placeholder="Search part, material, problem…" aria-label="Search components"></div>
+      <div class="count" id="count"></div>
+      <div class="field"><label for="sort" class="lbl">Sort</label><select class="select" id="sort"><option value="featured">Featured</option><option value="name">Name A–Z</option><option value="lead">Lead time</option><option value="price">Price, low to high</option></select></div>
+    </div>
+    <div class="prod-grid" id="grid"></div>
+  </div>
+</div>
+
+</main>
+<main data-view="product" hidden>
+<section class="page-head">
+  <div class="wrap">
+    <div class="crumbs"><a href="#home">Home</a><span>/</span><a href="#products">Components</a><span>/</span><a id="crumb-fam" href="#products">Family</a><span>/</span><span id="crumb-p">—</span></div>
+    <span class="eyebrow" id="p-code">—</span>
+    <h1 id="p-name">—</h1>
+    <p id="p-tag">—</p>
+  </div>
+</section>
+<div class="wrap detail">
+  <div class="drawing reveal">
+    <div id="drawing"></div>
+    <div class="cap" id="draw-cap"></div>
+  </div>
+  <div class="buy reveal">
+    <div class="chips" id="p-badges"></div>
+    <p class="muted" id="p-blurb"></p>
+    <div id="p-story"></div>
+    <div class="config" id="config"></div>
+    <table class="spec-table" aria-label="Specifications"><tbody id="specs"></tbody></table>
+    <div class="dl-row">
+      <button class="btn btn-sm" type="button" data-cad>STEP (3D)</button>
+      <button class="btn btn-sm" type="button" data-cad>DWG (2D)</button>
+      <button class="btn btn-sm" type="button" data-cad>Datasheet PDF</button>
+    </div>
+    <p class="notes">Prices are list, EXW, per piece. Volume pricing and custom sizes on request; add a note in the RFQ.</p>
+  </div>
+</div>
+<section class="section alt">
+  <div class="wrap">
+    <div class="section-head row">
+      <div><span class="eyebrow">Also in the catalog</span><h2>Related components</h2></div>
+      <a class="btn" href="#products">All components</a>
+    </div>
+    <div class="prod-grid" id="related"></div>
+  </div>
+</section>
+
+</main>
+<main data-view="services" hidden>
+<section class="page-head">
+  <div class="wrap">
+    <div class="crumbs"><a href="#home">Home</a><span>/</span><span>Design → Mold</span></div>
+    <span class="eyebrow">Engineering service</span>
+    <h1>From part file to running mold.</h1>
+    <p>We sit between the product designer and the toolroom. Send a part; we tell you what the mold has to be, design it, and follow it through build and first trial. The components in our catalog are the ones we reach for first.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Three deliverables</span>
+      <h2>Stop at any step. Each one stands on its own.</h2>
+    </div>
+    <div class="feat-grid three">
+      <div class="feat reveal">
+        <span class="spec">01 · 48 HOURS</span>
+        <h3>DFM review</h3>
+        <p>A marked-up copy of your STEP and a short report: wall-thickness map, draft check, how each undercut would be released, where the gate and parting line should go, where sink and warp will show, and which dimensions we can hold.</p>
+        <p class="hint">DELIVERABLE: MARKED-UP 3D + 2-PAGE REPORT</p>
+      </div>
+      <div class="feat reveal">
+        <span class="spec">02 · 7–10 WORKING DAYS</span>
+        <h3>Mold design</h3>
+        <p>Full mold design in NX or SolidWorks: cavity layout and steel, cooling with a flow check, ejection and slide system built from catalog parts where they fit, Moldflow fill/pack/warp on request, and a BOM that calls every standard part by number.</p>
+        <p class="hint">DELIVERABLE: 3D ASSEMBLY · 2D DRAWINGS · BOM</p>
+      </div>
+      <div class="feat reveal">
+        <span class="spec">03 · 25–35 WORKING DAYS</span>
+        <h3>Build &amp; trial</h3>
+        <p>Build at partner toolrooms under our drawings. Core and cavity measured on CMM before assembly. T0 and T1 attended by the engineer who designed the mold, with a measured sample report and an acceptance checklist.</p>
+        <p class="hint">DELIVERABLE: MOLD · CMM REPORT · T1 SAMPLES + MEASUREMENTS</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="dfm">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="prose">
+        <span class="eyebrow">DFM review</span>
+        <h2>What we check.</h2>
+        <p>The review is written for the person who owns the part, not for a toolmaker. Every finding says what it costs in the mold (a slide, a lifter, a longer cycle) and what change to the part would remove it.</p>
+        <p><strong>Where a finding points at a recurring problem, the answer is usually a catalog part.</strong> A vertical slide gets an SB balancer, a grease-sensitive part gets GB bushings, a rib that burns gets a VI vent. The report links to the part number.</p>
+        <a class="btn btn-primary" href="#rfq-design">Send a part for DFM</a>
+      </div>
+      <ul class="equip">
+        <li><span>Wall thickness and rib ratio</span><span>RIB ≤ 0.6 × WALL</span></li>
+        <li><span>Draft angles against texture spec</span><span>≥ 0.5° · ≥ 1.5° TEXTURED</span></li>
+        <li><span>Undercut release strategy</span><span>SLIDE · LIFTER · STRIPPER · COLLAPSIBLE</span></li>
+        <li><span>Gate type and location, weld lines</span><span>FLOW LENGTH / WALL</span></li>
+        <li><span>Parting line and shut-offs</span><span>≥ 3° SHUT-OFF ANGLE</span></li>
+        <li><span>Cooling reach into deep cores</span><span>BAFFLE · BUBBLER · CONFORMAL</span></li>
+        <li><span>Ejection marks and deep ribs</span><span>PIN Ø vs WALL</span></li>
+        <li><span>Shrink and warp risk</span><span>RESIN DATA · FIBER ORIENTATION</span></li>
+        <li><span>Venting at end of fill</span><span>SLOT 0.02–0.04 · SINTERED INSERT</span></li>
+        <li><span>Critical dimensions and tolerances</span><span>WHAT WE CAN HOLD AT T1</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="send">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="prose">
+        <span class="eyebrow">What to send us</span>
+        <h2>The inputs that make the 48 hours possible.</h2>
+        <p>Send what you have. Missing items slow the review down, they do not stop it. We will ask for the rest.</p>
+        <p><strong>Files go by email or a link; nothing is uploaded here.</strong> We sign an NDA on request before any file is opened.</p>
+      </div>
+      <ul class="equip">
+        <li><span>Part model</span><span>STEP / PARASOLID / X_T</span></li>
+        <li><span>Resin grade, datasheet if filled or flame-rated</span><span>e.g. PC/ABS, PA66-GF30</span></li>
+        <li><span>Annual volume and target cycle time</span><span>PCS / YEAR · s</span></li>
+        <li><span>Cavitation preference or constraint</span><span>1 · 2 · 4 · 8</span></li>
+        <li><span>Press: tonnage, tie-bar spacing, max mold height, ejector pattern</span><span>t · mm · mm</span></li>
+        <li><span>Cosmetic faces and texture spec</span><span>VDI / MT / SPI</span></li>
+        <li><span>Critical dimensions with tolerances</span><span>DRAWING OR PMI</span></li>
+        <li><span>Target date for first samples</span><span>T1 DATE</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Timeline</span>
+      <h2>A typical project, release to T1.</h2>
+    </div>
+    <div class="steps">
+      <div class="step"><h3>Part arrives</h3><p>STEP, resin, volume and press data by email. We confirm receipt and ask for anything missing the same day.</p><span class="t">DAY 0</span></div>
+      <div class="step"><h3>DFM report</h3><p>Marked-up model and report. One call to walk through the findings and agree what changes on the part.</p><span class="t">DAY 2</span></div>
+      <div class="step"><h3>Mold design released</h3><p>3D assembly, 2D drawings and BOM. Catalog parts ordered from stock the same day the design is approved.</p><span class="t">DAY 9–12</span></div>
+      <div class="step"><h3>T1 samples</h3><p>Mold built, measured, trialled. You get samples with a measurement report against the critical dimensions.</p><span class="t">DAY 35–45</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap">
+    <div>
+      <h2>Have a part and a deadline?</h2>
+      <p>Send the STEP and the press data. The DFM report is free for projects that go on to mold design with us, and quoted separately otherwise.</p>
+    </div>
+    <a class="btn btn-primary" href="#rfq-design">Start a project</a>
+  </div>
+</section>
+
+</main>
+<main data-view="rfq" hidden>
+<section class="page-head">
+  <div class="wrap">
+    <div class="crumbs"><a href="#home">Home</a><span>/</span><span>RFQ</span></div>
+    <span class="eyebrow">Request for quotation</span>
+    <h1>Your RFQ.</h1>
+    <p>Components you configured are listed here. Fill in the contact details and we build the RFQ text for you to send; nothing leaves this page by itself.</p>
+  </div>
+</section>
+<div class="wrap rfq-layout">
+  <div>
+    <div class="rfq-list" id="rfq-items"></div>
+    <div class="rfq-summary" id="rfq-sum"></div>
+    <div class="buy-row" style="margin-top:.8rem">
+      <a class="btn btn-sm" href="#products">Add more components</a>
+      <button class="btn btn-sm" id="rfq-clear" type="button">Clear list</button>
+    </div>
+  </div>
+  <div>
+    <form class="rfq-form" id="rfq-form" novalidate>
+      <div class="field"><label for="f-type">Request type</label>
+        <select class="select" id="f-type" name="type"><option value="components">Components quote</option><option value="design">Design + mold project</option></select>
+      </div>
+      <div class="two">
+        <div class="field"><label for="f-company">Company *</label><input class="input" id="f-company" name="company" required autocomplete="organization"></div>
+        <div class="field"><label for="f-name">Contact name</label><input class="input" id="f-name" name="name" autocomplete="name"></div>
+      </div>
+      <div class="two">
+        <div class="field"><label for="f-email">Email *</label><input class="input" id="f-email" name="email" type="email" required autocomplete="email"></div>
+        <div class="field"><label for="f-phone">Phone / WeChat</label><input class="input" id="f-phone" name="phone" autocomplete="tel"></div>
+      </div>
+      <div class="field"><label for="f-country">Country / region</label><input class="input" id="f-country" name="country" autocomplete="country-name"></div>
+      <div class="field"><label for="f-notes">Notes, part description, special sizes</label><textarea class="input" id="f-notes" name="notes"></textarea></div>
+      <button class="btn btn-primary btn-block" type="submit">Build RFQ text</button>
+      <div class="rfq-out" id="rfq-out">
+        <div class="field"><label for="rfq-text">RFQ text</label><textarea class="input" id="rfq-text" readonly></textarea></div>
+        <div class="buy-row">
+          <button class="btn btn-primary" type="button" id="rfq-copy">Copy</button>
+          <a class="btn" id="rfq-mail" href="#rfq">Open in email</a>
+        </div>
+        <p class="hint">If the email button does nothing in your browser, paste the copied text into a message to <span data-contact="email">sales@nexmold.example</span>.</p>
+      </div>
+    </form>
+  </div>
+</div>
+
+</main>
+<footer class="footer">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h4 data-brand>NEXMOLD</h4>
+        <p>Standard components for the problems every mold has, and the mold design to go with them. Small team, own designs, ships from stock.</p>
+      </div>
+      <div>
+        <h4>Components</h4>
+        <ul>
+          <li><a href="#products-slides">Slides &amp; undercuts</a></li>
+          <li><a href="#products-ejection">Ejection</a></li>
+          <li><a href="#products-guiding">Guiding &amp; wear</a></li>
+          <li><a href="#products-trace">Traceability</a></li>
+          <li><a href="#products-venting">Venting &amp; cooling</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Engineering</h4>
+        <ul>
+          <li><a href="#services">Design → Mold</a></li>
+          <li><a href="#services-dfm">DFM review</a></li>
+          <li><a href="#services-send">What to send us</a></li>
+          <li><a href="#home-origin">How parts get made</a></li>
+          <li><a href="#rfq">Request for quotation</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li class="mono" data-contact="email">sales@nexmold.example</li>
+          <li class="mono" data-contact="phone">+86 000 0000 0000</li>
+          <li data-contact="address">Dongguan, Guangdong, China</li>
+          <li>Mon–Sat 08:30–18:00 CST</li>
+        </ul>
+      </div>
+    </div>
+    <div class="bottom">
+      <span>© <span data-year>2026</span> <span data-brand>NEXMOLD</span>. Specifications subject to change; confirm against the drawing in your order.</span>
+      <span>Units mm · Prices USD EXW</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   NEXMOLD catalog data
+   ------------------------------------------------------------
+   !! All prices, lead times, specs and the brand name are
+   !! PLACEHOLDERS for review. Edit here; every page reads this file.
+   Price unit: USD per piece, EXW. lead = working days.
+   ============================================================ */
+window.NM = window.NM || {};
+
+NM.brand = "NEXMOLD";
+NM.contact = {
+  email: "sales@nexmold.example",
+  phone: "+86 000 0000 0000",
+  address: "Dongguan, Guangdong, China",
+};
+
+NM.families = [
+  { id: "slides",   name: "Slides & undercuts", short: "Slides",       blurb: "Mechanical slide and lifter units for undercuts, no hydraulics required." },
+  { id: "ejection", name: "Ejection",           short: "Ejection",     blurb: "Two-stage, accelerated and stepped ejection for thin walls and deep ribs." },
+  { id: "guiding",  name: "Guiding & wear",     short: "Guiding",      blurb: "Self-lubricating guiding for clean-room and high-cycle molds." },
+  { id: "trace",    name: "Traceability",       short: "Traceability", blurb: "Date stamps and cycle monitors so every part tells where it came from." },
+  { id: "venting",  name: "Venting & cooling",  short: "Venting",      blurb: "Sintered vents, quick couplers and hydraulic cylinders." },
+];
+
+/* --- small SVG mechanism figures (160 × 100) ------------------- */
+const F = {
+  open: '<svg viewBox="0 0 160 100" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">',
+  close: '</svg>',
+};
+
+NM.products = [
+  {
+    id: "SB", code: "SB", family: "slides", isNew: true, stock: true, lead: 5, flagship: true,
+    name: "Dual-spring slide balancer",
+    tag: "Cancels the slide's weight so the design can ignore gravity",
+    blurb: "For slides that travel vertically on the press. Two opposed die springs in a sealed cartridge hold the slide at every point of its stroke, so it neither drops when the mold opens nor loads the angle pin on closing. It replaces a counterweight with a part that bolts into a standard pocket.",
+    problem: "A heavy slide mounted on the top or bottom of the mold sags under its own weight as soon as the angle pin leaves it. The slide drifts, the retainer wears, and the angle pin takes a side load on every close. The usual fix is a one-off counterweight or an oversized spring plunger tuned by trial.",
+    solution: "Two die springs act on the slide from opposite sides through a floating rod. Their preload is set so the net force equals the slide's weight at mid-stroke and stays within ±5 % over the whole travel. The slide behaves as if it had no mass in the gravity direction; the retainer and the angle pin see only the molding loads they were sized for.",
+    specs: [
+      ["Housing", "SKD61, 50–54 HRC"],
+      ["Springs", "2 × CrSi die springs, ISO 10243"],
+      ["Rod", "SUJ2, 58–62 HRC, ground"],
+      ["Slide mass", "S 2–6 · M 5–15 · L 12–35 · XL 30–80 kg"],
+      ["Stroke", "20 – 120 mm"],
+      ["Balance error", "≤ ±5 % of slide weight over stroke"],
+      ["Temperature", "up to 200 °C"],
+      ["Rated life", "1 × 10⁶ cycles"],
+      ["Mounting", "4 × M6 (S/M) · 4 × M8 (L/XL), from slide back"],
+    ],
+    config: {
+      fields: [
+        { key: "size", label: "Size", opts: ["S", "M", "L", "XL"], hint: "S 2–6 kg · M 5–15 kg · L 12–35 kg · XL 30–80 kg" },
+        { key: "s", label: "Stroke", opts: ["20", "40", "60", "80", "100", "120"], unit: "mm" },
+      ],
+      pn: c => `SB-${c.size}-${c.s}`,
+      price: c => ({ S: 96, M: 128, L: 182, XL: 265 }[c.size] + +c.s * 0.6),
+    },
+    calc: "balancer",
+    drawing: "balancer",
+    fig: F.open + `
+      <path d="M30 8v84"/><path d="M26 8h8M26 92h8" opacity=".6"/>
+      <g class="a-spring-top"><path class="s-acc" d="M56 14v2l6 3-12 3 12 3-12 3 12 3-6 3v2"/></g>
+      <g class="a-spring-bot"><path class="s-acc" d="M56 86v-2l6-3-12-3 12-3-12-3 12-3-6-3v-2"/></g>
+      <g class="a-balance"><rect class="s-acc f-acc" x="38" y="38" width="36" height="24" rx="2"/><path d="M38 50h36" opacity=".4"/></g>
+      <path d="M110 30v34" opacity=".7"/><path d="M106 60l4 4 4-4" opacity=".7"/>
+      <text x="118" y="50" class="t-dim">m·g</text>
+      <text x="96" y="90" class="t-dim">ΣF = 0</text>` + F.close,
+  },
+  {
+    id: "SR", code: "SR", family: "slides", isNew: true, stock: true, lead: 3,
+    name: "QuickLock slide retainer",
+    tag: "Positive detent, no springs to lose",
+    blurb: "Holds the slide in its open position with a hardened ball detent instead of a leaf spring. Installs from the parting line in one pocket; no side access needed.",
+    specs: [
+      ["Body", "SKD61, 50–54 HRC"],
+      ["Detent ball", "SUJ2, Ø4 / Ø5 / Ø6"],
+      ["Holding force", "150 / 250 / 400 N"],
+      ["Repeatability", "±0.02 mm"],
+      ["Temperature", "up to 180 °C"],
+      ["Mounting", "2 × M4 from parting line"],
+    ],
+    config: {
+      fields: [
+        { key: "size", label: "Size", opts: ["S", "M", "L"], hint: "S 12×30 · M 16×40 · L 20×50 mm" },
+        { key: "force", label: "Holding force", opts: ["150", "250", "400"], unit: "N" },
+      ],
+      pn: c => `SR-${c.size}-${c.force}`,
+      price: c => ({ S: 38, M: 46, L: 58 }[c.size] + (c.force === "400" ? 6 : 0)),
+    },
+    fig: F.open + `
+      <rect x="10" y="62" width="140" height="14" rx="1"/>
+      <path d="M74 62v-4h10v4"/>
+      <g class="a-shift-x">
+        <rect class="s-acc f-acc" x="30" y="36" width="46" height="26" rx="2"/>
+        <circle class="s-acc" cx="53" cy="61" r="3.5"/>
+        <path class="s-acc" d="M53 50v-6M49 47l4-3 4 3M49 42l4-3 4 3"/>
+      </g>
+      <path d="M10 88h140" stroke-dasharray="3 5" opacity=".5"/>
+      <text x="118" y="54" class="t-dim">OPEN</text>` + F.close,
+  },
+  {
+    id: "MS", code: "MS", family: "slides", isNew: true, stock: true, lead: 5,
+    name: "Mini slide unit",
+    tag: "100 % mechanical core cam for small undercuts",
+    blurb: "A self-contained cam unit for undercuts up to 10 mm where a full slide does not fit. The angle is built into the housing, so there is no angle pin to machine or align.",
+    specs: [
+      ["Housing", "SKD61, 50–54 HRC"],
+      ["Core block", "SKD61, nitrided"],
+      ["Max undercut", "10 mm"],
+      ["Angle", "15° fixed"],
+      ["Width", "12 / 16 / 20 mm"],
+      ["Min pocket depth", "stroke + 18 mm"],
+    ],
+    config: {
+      fields: [
+        { key: "w", label: "Width", opts: ["12", "16", "20"], unit: "mm" },
+        { key: "s", label: "Stroke", opts: ["4", "6", "8", "10"], unit: "mm" },
+      ],
+      pn: c => `MS-${c.w}-${c.s}`,
+      price: c => 110 + +c.w * 2 + +c.s * 3,
+    },
+    fig: F.open + `
+      <path d="M20 20v60h50V20"/>
+      <path d="M70 20h70v60H70" opacity=".4"/>
+      <g class="a-cam">
+        <rect class="s-acc f-acc" x="42" y="38" width="30" height="24" rx="1.5"/>
+        <path class="s-acc" d="M72 44h16v12H72"/>
+      </g>
+      <path d="M28 76l24-48" stroke-dasharray="3 4" opacity=".6"/>
+      <text x="96" y="30" class="t-dim">CAVITY</text>` + F.close,
+  },
+  {
+    id: "LC", code: "LC", family: "slides", isNew: true, stock: true, lead: 5,
+    name: "Flex lifter coupling",
+    tag: "Self-aligning lifter base, up to 15°",
+    blurb: "Lets the lifter rod find its own angle while the ejector plate moves straight. Takes up plate misalignment that would otherwise gall the rod.",
+    specs: [
+      ["Coupling body", "S45C, black oxide"],
+      ["Slider", "Bronze-graphite, self-lube"],
+      ["Rod Ø", "10 / 12 / 16 / 20 mm"],
+      ["Max angle", "15°"],
+      ["Max stroke", "60 mm"],
+      ["Rated side load", "1.2 kN (Ø16)"],
+    ],
+    config: {
+      fields: [
+        { key: "d", label: "Rod Ø", opts: ["10", "12", "16", "20"], unit: "mm" },
+        { key: "s", label: "Stroke", opts: ["20", "30", "40", "60"], unit: "mm" },
+        { key: "a", label: "Angle", opts: ["5", "8", "10", "12", "15"], unit: "°" },
+      ],
+      pn: c => `LC-${c.d}-${c.s}-${c.a}`,
+      price: c => 48 + +c.d * 1.5 + +c.s * 0.4,
+    },
+    calc: "lifter",
+    fig: F.open + `
+      <path d="M10 22h140" opacity=".4"/>
+      <g class="a-lift">
+        <rect x="10" y="78" width="140" height="10"/>
+        <g class="a-tilt">
+          <rect class="s-acc f-acc" x="68" y="64" width="24" height="14" rx="2"/>
+          <path class="s-acc" d="M80 64V30"/>
+          <path class="s-acc" d="M72 30h20v-8H72z"/>
+        </g>
+      </g>
+      <path d="M100 22v-6h22v6" opacity=".6"/>
+      <text x="104" y="40" class="t-dim">UNDERCUT</text>` + F.close,
+  },
+  {
+    id: "TE", code: "TE", family: "ejection", isNew: true, stock: false, lead: 10,
+    name: "Two-stage ejector",
+    tag: "Two strokes from one ejector plate",
+    blurb: "Releases the part from the core first, then pushes it off the stripper or lifter. Purely mechanical latch, so the sequence is the same on every cycle and every press.",
+    specs: [
+      ["Latch", "SKD11, 58–60 HRC"],
+      ["Stroke 1", "10–50 mm"],
+      ["Stroke 2", "10–40 mm"],
+      ["Rated load", "8 kN per unit"],
+      ["Units per mold", "2 or 4 (sym.)"],
+      ["Reset", "automatic on close"],
+    ],
+    config: {
+      fields: [
+        { key: "s1", label: "Stroke 1", opts: ["10", "20", "30", "40", "50"], unit: "mm" },
+        { key: "s2", label: "Stroke 2", opts: ["10", "20", "30", "40"], unit: "mm" },
+      ],
+      pn: c => `TE-${c.s1}-${c.s2}`,
+      price: c => 160 + (+c.s1 + +c.s2) * 1.2,
+    },
+    fig: F.open + `
+      <g class="a-stage2"><rect x="20" y="24" width="120" height="10"/><path d="M50 24v-10M110 24v-10"/></g>
+      <g class="a-stage1"><rect class="s-acc f-acc" x="20" y="46" width="120" height="10"/><path class="s-acc" d="M80 46V14"/></g>
+      <rect x="20" y="84" width="120" height="8" opacity=".5"/>
+      <path d="M150 84V46" class="s-acc" stroke-dasharray="2 3"/>
+      <text x="8" y="20" class="t-dim">2</text><text x="8" y="43" class="t-dim">1</text>` + F.close,
+  },
+  {
+    id: "AE", code: "AE", family: "ejection", isNew: false, stock: true, lead: 5,
+    name: "Accelerated ejector",
+    tag: "Pin travels 1.5× or 2× the plate stroke",
+    blurb: "A lever inside the unit multiplies the ejector plate stroke for one or two pins. Use it to clear a deep boss or a tall rib without a longer press stroke.",
+    specs: [
+      ["Lever", "SKD11, 58–60 HRC"],
+      ["Ratio", "1.5 : 1 or 2 : 1"],
+      ["Plate stroke", "20–60 mm"],
+      ["Pin Ø", "up to 8 mm"],
+      ["Rated load", "2 kN"],
+    ],
+    config: {
+      fields: [
+        { key: "r", label: "Ratio", opts: ["1.5", "2.0"] },
+        { key: "s", label: "Plate stroke", opts: ["20", "30", "40", "50", "60"], unit: "mm" },
+      ],
+      pn: c => `AE-${c.r.replace(".", "")}-${c.s}`,
+      price: c => 95 + +c.s * 0.8 + (c.r === "2.0" ? 12 : 0),
+    },
+    fig: F.open + `
+      <g class="a-lift-sm"><rect x="20" y="70" width="120" height="10"/><path d="M60 70V50"/></g>
+      <g class="a-lift-lg"><path class="s-acc" d="M100 70V18"/><path class="s-acc" d="M94 18h12"/></g>
+      <path d="M46 50l54 12" class="s-acc"/><circle cx="60" cy="52" r="3"/><circle cx="100" cy="64" r="3" class="s-acc"/>
+      <path d="M20 90h120" stroke-dasharray="3 5" opacity=".5"/>` + F.close,
+  },
+  {
+    id: "SP", code: "SP", family: "ejection", isNew: true, stock: true, lead: 3,
+    name: "One-piece stepped ejector pin",
+    tag: "Ground from solid, no welded joint",
+    blurb: "A stepped pin machined from one bar instead of a welded assembly. No heat-affected zone at the step, so the small diameter survives thin-wall ejection.",
+    specs: [
+      ["Material", "SKD61 (H13)"],
+      ["Core hardness", "45–50 HRC"],
+      ["Surface", "nitrided, ≥ 900 HV0.1"],
+      ["d1 tolerance", "−0.005 / −0.015"],
+      ["d2 tolerance", "−0.005 / −0.015"],
+      ["Straightness", "0.03 mm / 300 mm"],
+      ["Step radius", "R0.3"],
+    ],
+    config: {
+      fields: [
+        { key: "d1", label: "d1 (shank)", opts: ["3", "4", "5", "6", "8", "10", "12"], unit: "mm" },
+        { key: "d2", label: "d2 (tip)", opts: ["1.5", "2", "2.5", "3", "4", "5", "6", "8"], unit: "mm" },
+        { key: "L", label: "Length L", opts: ["100", "150", "200", "250", "300", "400"], unit: "mm" },
+        { key: "l2", label: "Tip length", opts: ["20", "30", "40", "50", "60"], unit: "mm" },
+      ],
+      pn: c => `SP-${c.d1}-${c.d2}-${c.L}-${c.l2}`,
+      price: c => 6.5 + +c.d1 * 0.6 + +c.L * 0.02,
+      validate: c => +c.d2 < +c.d1 ? null : "Tip diameter d2 must be smaller than shank d1.",
+    },
+    drawing: "pin",
+    fig: F.open + `
+      <path d="M16 38h8v24h-8z"/>
+      <rect class="s-acc f-acc" x="24" y="44" width="76" height="12"/>
+      <path class="s-acc" d="M100 44v2h40v8h-40v2"/>
+      <g class="a-pulse"><path d="M24 70v10M100 70v10M24 76h76" stroke-dasharray="2 2"/><text x="56" y="90" class="t-dim">L1</text></g>
+      <text x="108" y="38" class="t-dim">d2</text>` + F.close,
+  },
+  {
+    id: "GB", code: "GB", family: "guiding", isNew: true, stock: true, lead: 3,
+    name: "Self-lube guide bushing",
+    tag: "Graphite plugs, zero grease",
+    blurb: "A bronze alloy bushing with embedded graphite plugs. Runs dry, so there is no grease to migrate onto medical or optical parts and no relubrication interval to schedule.",
+    specs: [
+      ["Material", "CuSn / graphite plugs"],
+      ["Bore tolerance", "H7"],
+      ["Mating pillar", "h6, 58–62 HRC"],
+      ["Max PV", "1.6 MPa·m/s"],
+      ["Temperature", "−40 to 200 °C"],
+      ["Press fit", "ISO 286 p6"],
+    ],
+    config: {
+      fields: [
+        { key: "d", label: "Bore Ø", opts: ["12", "16", "20", "25", "30", "40"], unit: "mm" },
+        { key: "L", label: "Length", opts: ["30", "40", "50", "60", "80"], unit: "mm" },
+      ],
+      pn: c => `GB-${c.d}-${c.L}`,
+      price: c => 14 + +c.d * 0.7 + +c.L * 0.15,
+    },
+    drawing: "bushing",
+    fig: F.open + `
+      <rect class="s-acc" x="44" y="32" width="72" height="36" rx="3"/>
+      <path class="s-acc" d="M44 32h-8v36h8"/>
+      <g fill="currentColor" stroke="none" opacity=".8">
+        <circle cx="58" cy="40" r="2"/><circle cx="74" cy="40" r="2"/><circle cx="90" cy="40" r="2"/><circle cx="106" cy="40" r="2"/>
+        <circle cx="66" cy="60" r="2"/><circle cx="82" cy="60" r="2"/><circle cx="98" cy="60" r="2"/>
+      </g>
+      <g class="a-shift-x"><path d="M10 44h120M10 56h120" opacity=".6"/></g>` + F.close,
+  },
+  {
+    id: "DS", code: "DS", family: "trace", isNew: false, stock: true, lead: 3,
+    name: "Date stamp insert",
+    tag: "Replaceable year ring, flush face",
+    blurb: "Year/month marking with a screwdriver-set arrow. The year ring swaps from the molding face, so the mold stays on the press at year end.",
+    specs: [
+      ["Material", "SUS420, 48–52 HRC"],
+      ["Face", "flush ±0.01 mm"],
+      ["Ø", "4 – 20 mm"],
+      ["Formats", "Y/M arrow · M/Y arrow"],
+      ["Set", "year ring + 1 arrow"],
+    ],
+    config: {
+      fields: [
+        { key: "d", label: "Ø", opts: ["4", "5", "6", "8", "10", "12", "16", "20"], unit: "mm" },
+        { key: "f", label: "Format", opts: ["YM", "MY"], hint: "YM year outer · MY month outer" },
+        { key: "y", label: "Year ring", opts: ["2026", "2027", "2028", "2029"] },
+      ],
+      pn: c => `DS-${c.d}-${c.f}-${c.y.slice(2)}`,
+      price: c => 8 + +c.d * 0.35,
+    },
+    fig: F.open + `
+      <circle cx="80" cy="50" r="34"/><circle cx="80" cy="50" r="14" class="s-acc"/>
+      <g opacity=".7"><path d="M80 16v6M80 78v6M46 50h6M108 50h6M56 26l4 4M100 70l4 4M104 26l-4 4M60 70l-4 4"/></g>
+      <g class="a-spin"><path class="s-acc" d="M80 50l0-11M76 43l4-4 4 4"/></g>
+      <text x="118" y="24" class="t-dim">26</text>` + F.close,
+  },
+  {
+    id: "CM", code: "CM", family: "trace", isNew: true, stock: true, lead: 5,
+    name: "Electronic cycle monitor",
+    tag: "Counts, times and reports every shot",
+    blurb: "A sealed counter that logs cycle count and cycle time, then syncs over Bluetooth to a phone or the shop gateway. Flags preventive-maintenance intervals before the mold is late.",
+    specs: [
+      ["Housing", "SUS304, IP67"],
+      ["Count", "up to 9,999,999"],
+      ["Time resolution", "0.1 s"],
+      ["Battery", "10 yr @ 20 s cycle"],
+      ["Sync", "Bluetooth 5.0 LE"],
+      ["Export", "CSV, JSON"],
+      ["Mounting", "Ø26 pocket, 2 × M3"],
+    ],
+    config: {
+      fields: [
+        { key: "v", label: "Variant", opts: ["STD", "GW"], hint: "STD phone app · GW with shop gateway" },
+      ],
+      pn: c => `CM-${c.v}`,
+      price: c => (c.v === "GW" ? 390 : 240),
+    },
+    fig: F.open + `
+      <rect x="40" y="28" width="80" height="48" rx="4"/>
+      <rect x="50" y="38" width="60" height="22" rx="1" class="s-acc"/>
+      <text x="55" y="54" class="t-num">1 204 3</text><text x="99" y="54" class="t-num a-blink">17</text>
+      <g class="a-wave"><path d="M128 42a10 10 0 0 1 0 16"/><path d="M134 36a18 18 0 0 1 0 28"/></g>
+      <path d="M48 76v6M112 76v6"/>` + F.close,
+  },
+  {
+    id: "VI", code: "VI", family: "venting", isNew: false, stock: true, lead: 3,
+    name: "Sintered vent insert",
+    tag: "Porous steel where a vent slot will not fit",
+    blurb: "A sintered stainless insert that vents gas through its whole face. Put it at the bottom of a deep rib or boss where a parting-line vent cannot reach.",
+    specs: [
+      ["Material", "sintered SUS316"],
+      ["Pore size", "7 / 20 µm"],
+      ["Air flow", "≥ 1.5 L/min @ 0.1 MPa (Ø8, 20 µm)"],
+      ["Hardness", "~ 30 HRC"],
+      ["Fit", "press fit, m6"],
+      ["Service", "clean with ultrasonic bath"],
+    ],
+    config: {
+      fields: [
+        { key: "d", label: "Ø", opts: ["6", "8", "10", "12"], unit: "mm" },
+        { key: "p", label: "Pore", opts: ["7", "20"], unit: "µm" },
+      ],
+      pn: c => `VI-${c.d}-${c.p}`,
+      price: c => 16 + +c.d * 1.2,
+    },
+    fig: F.open + `
+      <path d="M20 20h120v62H20z" opacity=".4"/>
+      <rect class="s-acc" x="60" y="48" width="40" height="34"/>
+      <g fill="currentColor" stroke="none" opacity=".7">
+        <circle cx="68" cy="56" r="1.3"/><circle cx="80" cy="56" r="1.3"/><circle cx="92" cy="56" r="1.3"/>
+        <circle cx="74" cy="64" r="1.3"/><circle cx="86" cy="64" r="1.3"/>
+        <circle cx="68" cy="72" r="1.3"/><circle cx="80" cy="72" r="1.3"/><circle cx="92" cy="72" r="1.3"/>
+      </g>
+      <g class="a-flow"><path d="M70 44V26M80 44V26M90 44V26" stroke-dasharray="3 4"/></g>
+      <text x="26" y="34" class="t-dim">GAS</text>` + F.close,
+  },
+  {
+    id: "HC", code: "HC", family: "venting", isNew: false, stock: false, lead: 12,
+    name: "Core-pull hydraulic cylinder",
+    tag: "Compact block cylinder with position sensing",
+    blurb: "Short block cylinder for core pulls and long-stroke slides. Inductive end sensors come fitted, with M12 connectors wired to the press.",
+    specs: [
+      ["Bore", "25 / 32 / 40 / 50 mm"],
+      ["Stroke", "25 – 100 mm"],
+      ["Pressure", "max 14 MPa"],
+      ["Rod", "C45, hard chrome 20 µm"],
+      ["Seals", "FKM, 150 °C"],
+      ["Sensors", "2 × inductive, M12"],
+    ],
+    config: {
+      fields: [
+        { key: "b", label: "Bore", opts: ["25", "32", "40", "50"], unit: "mm" },
+        { key: "s", label: "Stroke", opts: ["25", "50", "80", "100"], unit: "mm" },
+      ],
+      pn: c => `HC-${c.b}-${c.s}`,
+      price: c => 180 + +c.b * 3 + +c.s * 1.5,
+    },
+    drawing: "cyl",
+    fig: F.open + `
+      <rect x="20" y="32" width="70" height="36" rx="2"/>
+      <path d="M30 32v-8M80 32v-8"/>
+      <g class="a-shift-x"><path class="s-acc" d="M90 46h40v8H90z"/><path class="s-acc" d="M130 42h10v16h-10z"/></g>
+      <circle cx="34" cy="50" r="3" class="s-acc"/><circle cx="76" cy="50" r="3" class="s-acc"/>` + F.close,
+  },
+];
+
+NM.byId = id => NM.products.find(p => p.id === id);
+NM.familyById = id => NM.families.find(f => f.id === id);
+
+/* ============================================================
+   NEXMOLD — single-file site logic, hash-routed.
+   Routes: #home[-anchor]  #products[-family]  #product-<ID>
+           #services[-anchor]  #rfq[-design]
+   No build step; runs from file://, any static host, or embedded.
+   ============================================================ */
+(() => {
+  "use strict";
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const money = n => "$" + n.toFixed(2);
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------------- RFQ store (localStorage, best effort) ---------------- */
+  const RFQ = {
+    key: "nm_rfq", mem: [],
+    load() { try { return JSON.parse(localStorage.getItem(this.key)) || this.mem; } catch { return this.mem; } },
+    save(items) { this.mem = items; try { localStorage.setItem(this.key, JSON.stringify(items)); } catch {} updateCount(); },
+    add(item) { const items = this.load(); const ex = items.find(i => i.pn === item.pn); if (ex) ex.qty += item.qty; else items.push(item); this.save(items); },
+    remove(pn) { this.save(this.load().filter(i => i.pn !== pn)); },
+    setQty(pn, qty) { const items = this.load(); const it = items.find(i => i.pn === pn); if (it) it.qty = Math.max(1, qty | 0); this.save(items); },
+    clear() { this.save([]); },
+  };
+  function updateCount() {
+    const n = RFQ.load().reduce((a, i) => a + i.qty, 0);
+    $$(".rfq-count").forEach(el => { el.textContent = n; el.dataset.n = n; });
+  }
+
+  /* ---------------- toast ---------------- */
+  let toastEl, toastT;
+  function toast(html) {
+    if (!toastEl) { toastEl = document.createElement("div"); toastEl.className = "toast"; toastEl.setAttribute("role", "status"); document.body.appendChild(toastEl); }
+    toastEl.innerHTML = html; toastEl.classList.add("show");
+    clearTimeout(toastT); toastT = setTimeout(() => toastEl.classList.remove("show"), 2800);
+  }
+
+  /* ---------------- reveal on scroll ---------------- */
+  let io;
+  function initReveal(root = document) {
+    const els = $$(".reveal:not(.in)", root);
+    if (reduced || !("IntersectionObserver" in window)) { els.forEach(e => e.classList.add("in")); return; }
+    io = io || new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -6% 0px" });
+    els.forEach(e => io.observe(e));
+  }
+
+  /* ---------------- product helpers ---------------- */
+  const defaults = p => { const c = {}; (p.config?.fields || []).forEach(f => c[f.key] = f.opts[0]); return c; };
+  const leadText = p => p.stock ? `Stock · ships in ${p.lead} days` : `Made to order · ${p.lead} days`;
+  function cardHTML(p) {
+    const fam = NM.familyById(p.family);
+    const price = p.config ? p.config.price(defaults(p)) : null;
+    return `<article class="card reveal" data-id="${p.id}">
+      <a class="card-fig" href="#product-${p.id}" aria-label="${esc(p.name)}">
+        ${p.isNew ? '<span class="badge">New 2026</span>' : ""}
+        ${p.stock ? '<span class="badge stock">In stock</span>' : ""}
+        <div class="ic">${p.fig}</div>
+      </a>
+      <div class="card-body">
+        <div class="sku">${p.code} · ${esc(fam.short)}</div>
+        <h3><a href="#product-${p.id}">${esc(p.name)}</a></h3>
+        <p>${esc(p.tag)}</p>
+        <div class="chips">${p.specs.slice(0, 2).map(s => `<span class="chip">${esc(s[1])}</span>`).join("")}</div>
+      </div>
+      <div class="card-foot">
+        <div class="price">${price != null ? "from " + money(price) : "Quote"}<small>${leadText(p)}</small></div>
+        <a class="btn btn-sm" href="#product-${p.id}">Configure</a>
+      </div>
+    </article>`;
+  }
+
+  /* ================= HOME ================= */
+  const SB_BANDS = { S: [2, 6], M: [5, 15], L: [12, 35], XL: [30, 80] };
+  let hero;
+  const home = {
+    inited: false,
+    init(anchor) {
+      const view = $('main[data-view="home"]');
+      if (!this.inited) {
+        this.inited = true;
+        $("#featured").innerHTML = NM.products.filter(p => p.isNew).slice(0, 4).map(cardHTML).join("");
+        hero = heroStage($("#hero-canvas"));
+        const m = $("#sz-m"), s = $("#sz-s"), out = $("#sz-out"), go = $("#sz-go");
+        const size = () => {
+          const mass = +m.value || 0, W = mass * 9.81;
+          const fit = Object.entries(SB_BANDS).find(([, [lo, hi]]) => mass >= lo && mass <= hi);
+          $$(".band").forEach(b => b.classList.toggle("on", !!fit && b.dataset.size === fit[0]));
+          if (fit) {
+            const p = NM.byId("SB"), c = { size: fit[0], s: s.value };
+            out.innerHTML = `<span class="pn">${p.config.pn(c)}</span> · ${money(p.config.price(c))} · weight <b>${W.toFixed(0)} N</b> · preload <b>${(W / 2).toFixed(0)} N</b> per spring`;
+            go.textContent = `Configure ${p.config.pn(c)}`; go.href = `#product-SB_${c.size}_${c.s}`;
+          } else {
+            out.innerHTML = mass < 2 ? "Below 2 kg a spring plunger holds the slide; the SB is not needed." : "Above 80 kg: ask us for a tandem unit (two SB-XL on one slide).";
+            go.textContent = "Configure the SB"; go.href = "#product-SB";
+          }
+        };
+        m.addEventListener("input", size); s.addEventListener("input", size); size();
+      }
+      hero?.start();
+      initReveal(view);
+      scrollToAnchor(view, anchor);
+    },
+    leave() { hero?.stop(); },
+  };
+
+  /* Wireframe two-plate mold: opens, ejects, closes, counts cycles. */
+  function heroStage(cv) {
+    const ctx = cv.getContext("2d");
+    const hud = { cycle: $("#hud-cycle"), gap: $("#hud-gap"), state: $("#hud-state") };
+    let W = 0, H = 0, raf = 0, running = false;
+    const resize = () => {
+      const DPR = Math.min(window.devicePixelRatio || 1, 2);
+      const r = cv.getBoundingClientRect(); W = r.width || 400; H = r.height || 400;
+      cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR);
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    };
+    window.addEventListener("resize", () => { resize(); if (reduced && running) frame(performance.now()); });
+
+    const P = 300, GAP_MAX = 120, EJ_MAX = 40, PERIOD = 7;
+    let count = 1204317, lastPhase = 3;
+    const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+    const BLUE = css("--blue") || "#5b8def", ACC = css("--accent") || "#ff6a1a";
+    const ease = x => x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
+    const seg = (t, a, b) => Math.min(1, Math.max(0, (t - a) / (b - a)));
+    const kin = t => ({
+      gap: GAP_MAX * (ease(seg(t, 0, .16)) - ease(seg(t, .5, .66))),
+      ej: EJ_MAX * (ease(seg(t, .2, .3)) - ease(seg(t, .34, .44))),
+      phase: t < .16 ? 0 : t < .5 ? 1 : t < .66 ? 2 : 3,
+    });
+    const project = (pt, yaw, pitch, scale) => {
+      const [x, y, z] = pt, cy = Math.cos(yaw), sy = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
+      const x1 = x * cy + z * sy, z1 = -x * sy + z * cy, y2 = y * cp - z1 * sp, z2 = y * sp + z1 * cp;
+      const s = 1500 / (1500 + z2);
+      return [W / 2 + x1 * s * scale, H / 2 - y2 * s * scale, z2];
+    };
+    const box = (cx, y0, y1, w, d) => { const hx = w / 2, hz = d / 2; return [[cx - hx, y0, -hz], [cx + hx, y0, -hz], [cx + hx, y0, hz], [cx - hx, y0, hz], [cx - hx, y1, -hz], [cx + hx, y1, -hz], [cx + hx, y1, hz], [cx - hx, y1, hz]]; };
+    const EDGES = [[0, 1], [1, 2], [2, 3], [3, 0], [4, 5], [5, 6], [6, 7], [7, 4], [0, 4], [1, 5], [2, 6], [3, 7]];
+    const line = (a, b, color, as = 1, w = 1) => {
+      ctx.strokeStyle = color; ctx.globalAlpha = Math.max(.12, Math.min(1, .9 - (a[2] + b[2]) / 1000)) * as; ctx.lineWidth = w;
+      ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
+    };
+    const drawBox = (c, prj, color, w = 1) => { const p = c.map(prj); EDGES.forEach(([i, j]) => line(p[i], p[j], color, 1, w)); };
+    const drawCyl = (cx, cz, r, y0, y1, prj, color) => {
+      const N = 20, top = [], bot = [];
+      for (let i = 0; i < N; i++) { const a = i / N * Math.PI * 2; top.push(prj([cx + r * Math.cos(a), y1, cz + r * Math.sin(a)])); bot.push(prj([cx + r * Math.cos(a), y0, cz + r * Math.sin(a)])); }
+      for (let i = 0; i < N; i++) { line(top[i], top[(i + 1) % N], color, 1, 1.2); line(bot[i], bot[(i + 1) % N], color, .7); }
+      for (let i = 0; i < N; i += 5) line(top[i], bot[i], color, .8);
+    };
+    function frame(now) {
+      const t = (now / 1000 % PERIOD) / PERIOD;
+      const k = reduced ? { gap: 70, ej: 0, phase: 1 } : kin(t);
+      if (!reduced && k.phase === 3 && lastPhase === 2) count++;
+      lastPhase = k.phase;
+      const yaw = reduced ? .6 : .55 + now / 1000 * .18, pitch = -.42, scale = Math.min(W, H) / 640;
+      const prj = pt => project(pt, yaw, pitch, scale);
+      ctx.clearRect(0, 0, W, H); ctx.lineCap = "round";
+      let y = -(320 + GAP_MAX) / 2;
+      const yClampB = y; y += 30; const ySpacer = y; y += 90; const ySupport = y; y += 50; const yCore = y; y += 60; const yPL = y;
+      const yCav = yPL + k.gap, yClampT = yCav + 60;
+      drawBox(box(0, yClampB, yClampB + 30, P + 60, P), prj, BLUE);
+      drawBox(box(-(P / 2 - 25), ySpacer, ySpacer + 90, 50, P), prj, BLUE);
+      drawBox(box(P / 2 - 25, ySpacer, ySpacer + 90, 50, P), prj, BLUE);
+      drawBox(box(0, ySupport, ySupport + 50, P, P), prj, BLUE);
+      drawBox(box(0, yCore, yCore + 60, P, P), prj, BLUE, 1.3);
+      const yEj = ySpacer + 8 + k.ej;
+      drawBox(box(0, yEj, yEj + 22, P - 120, P - 40), prj, BLUE);
+      drawBox(box(0, yEj + 22, yEj + 44, P - 120, P - 40), prj, BLUE);
+      [[-70, -70], [70, -70], [-70, 70], [70, 70], [0, 0]].forEach(([x, z]) => line(prj([x, yEj + 44, z]), prj([x, yCore + 60 + k.ej, z]), ACC, .9, 1.2));
+      drawBox(box(0, yCav, yCav + 60, P, P), prj, BLUE, 1.3);
+      drawBox(box(0, yClampT, yClampT + 30, P + 60, P), prj, BLUE);
+      const pl = box(0, yPL, yCav, P, P).map(prj);
+      [[0, 1], [1, 2], [2, 3], [3, 0], [4, 5], [5, 6], [6, 7], [7, 4]].forEach(([i, j]) => line(pl[i], pl[j], ACC, 1, 1.4));
+      [[-115, -115], [115, -115], [-115, 115], [115, 115]].forEach(([x, z]) => { drawCyl(x, z, 12, yCav - 110, yCav + 60, prj, ACC); drawCyl(x, z, 16, yCore, yCore + 60, prj, BLUE); });
+      drawCyl(0, 0, 50, yClampT + 30, yClampT + 36, prj, BLUE);
+      drawCyl(0, 0, 10, yCav, yClampT + 36, prj, ACC);
+      ctx.globalAlpha = 1;
+      if (hud.cycle) hud.cycle.textContent = count.toLocaleString("en-US").replace(/,/g, " ");
+      if (hud.gap) hud.gap.textContent = k.gap < .5 ? "CLOSED" : k.gap.toFixed(1) + " mm";
+      if (hud.state) hud.state.textContent = ["OPENING", k.ej > 1 ? "EJECTING" : "OPEN", "CLOSING", "INJECT / HOLD"][k.phase];
+      if (running && !reduced) raf = requestAnimationFrame(frame);
+    }
+    return {
+      start() { if (running) return; running = true; resize(); raf = requestAnimationFrame(frame); },
+      stop() { running = false; cancelAnimationFrame(raf); },
+    };
+  }
+
+  /* ================= PRODUCTS (catalog) ================= */
+  const products = {
+    inited: false,
+    init(family) {
+      const view = $('main[data-view="products"]');
+      const grid = $("#grid"), fams = $("#fam-filters"), q = $("#q"), sort = $("#sort"),
+        onlyNew = $("#only-new"), onlyStock = $("#only-stock"), count = $("#count");
+      const render = () => {
+        const on = new Set($$("input:checked", fams).map(i => i.value));
+        const term = q.value.trim().toLowerCase();
+        const pr = p => p.config ? p.config.price(defaults(p)) : 1e9;
+        const sorters = {
+          featured: (a, b) => (b.isNew - a.isNew) || (b.flagship ? 1 : 0) - (a.flagship ? 1 : 0) || a.name.localeCompare(b.name),
+          name: (a, b) => a.name.localeCompare(b.name), lead: (a, b) => a.lead - b.lead, price: (a, b) => pr(a) - pr(b),
+        };
+        const list = NM.products.filter(p => on.has(p.family)
+          && (!onlyNew.checked || p.isNew) && (!onlyStock.checked || p.stock)
+          && (!term || [p.id, p.name, p.tag, p.blurb, p.problem || "", ...p.specs.flat()].join(" ").toLowerCase().includes(term)))
+          .sort(sorters[sort.value] || sorters.featured);
+        grid.innerHTML = list.length ? list.map(cardHTML).join("")
+          : `<div class="empty">No components match. <button class="btn btn-sm" type="button" data-reset>Clear filters</button></div>`;
+        count.innerHTML = `<b>${list.length}</b> of ${NM.products.length} components`;
+        initReveal(view);
+      };
+      const reset = () => { $$("input", fams).forEach(i => i.checked = true); q.value = ""; onlyNew.checked = false; onlyStock.checked = false; sort.value = "featured"; render(); };
+      if (!this.inited) {
+        this.inited = true;
+        fams.innerHTML = NM.families.map(f => `<label><input type="checkbox" value="${f.id}" checked> ${esc(f.name)}<span class="n">${NM.products.filter(p => p.family === f.id).length}</span></label>`).join("");
+        [fams, q, sort, onlyNew, onlyStock].forEach(el => el.addEventListener("input", render));
+        $("#clear").addEventListener("click", reset);
+        grid.addEventListener("click", e => { if (e.target.closest("[data-reset]")) reset(); });
+      }
+      if (family && NM.familyById(family)) $$("input", fams).forEach(i => i.checked = i.value === family);
+      else $$("input", fams).forEach(i => i.checked = true);
+      render();
+      window.scrollTo(0, 0);
+    },
+  };
+
+  /* ================= PRODUCT (detail + configurator) ================= */
+  const product = {
+    inited: false,
+    init(id) {
+      const view = $('main[data-view="product"]');
+      const [pid, ...preset] = (id || "").split("_");
+      const p = NM.byId(pid.toUpperCase()) || NM.byId("SB");
+      const fam = NM.familyById(p.family);
+      document.title = `${p.name} · ${NM.brand}`;
+      $("#crumb-fam").textContent = fam.name; $("#crumb-fam").href = `#products-${fam.id}`;
+      $("#crumb-p").textContent = p.code;
+      $("#p-code").textContent = `${p.code} · ${fam.name}`;
+      $("#p-name").textContent = p.name;
+      $("#p-tag").textContent = p.tag;
+      $("#p-blurb").textContent = p.blurb;
+      $("#p-story").innerHTML = p.problem ? `<div class="story"><div><span class="lbl">Problem</span><p>${esc(p.problem)}</p></div><div><span class="lbl">Standard part</span><p>${esc(p.solution)}</p></div></div>` : "";
+      $("#p-badges").innerHTML = (p.isNew ? '<span class="chip chip-acc">New 2026</span>' : "") + `<span class="chip ${p.stock ? "chip-ok" : "chip-warn"}">${leadText(p)}</span>`;
+      $("#specs").innerHTML = p.specs.map(([k, v]) => `<tr><th>${esc(k)}</th><td>${esc(v)}</td></tr>`).join("");
+      $("#related").innerHTML = NM.products.filter(x => x.family === p.family && x.id !== p.id).concat(NM.products.filter(x => x.family !== p.family)).slice(0, 4).map(cardHTML).join("");
+
+      const cfgEl = $("#config"), drawEl = $("#drawing"), capEl = $("#draw-cap"), cfg = p.config, state = defaults(p);
+      (cfg?.fields || []).forEach((f, i) => { if (preset[i] && f.opts.includes(preset[i])) state[f.key] = preset[i]; });
+      cfgEl.innerHTML = `
+        <h3>${cfg ? "Configure" : "Order"}</h3>
+        ${cfg ? `<div class="opts">${cfg.fields.map(f => `
+          <div class="field">
+            <label for="f-${f.key}">${esc(f.label)}${f.unit ? ` (${f.unit})` : ""}</label>
+            <select class="select" id="f-${f.key}" data-key="${f.key}">${f.opts.map(o => `<option value="${o}"${o === state[f.key] ? " selected" : ""}>${o}</option>`).join("")}</select>
+            ${f.hint ? `<span class="hint">${esc(f.hint)}</span>` : ""}
+          </div>`).join("")}</div>` : ""}
+        ${p.calc === "lifter" ? lifterCalcHTML() : p.calc === "balancer" ? balancerCalcHTML() : ""}
+        <div class="out">
+          <div><div class="pn-l">Part number</div><div class="pn" id="pn">${p.code}</div></div>
+          <div class="pr" id="pr"></div>
+        </div>
+        <div class="err" id="cfg-err" hidden></div>
+        <div class="buy-row">
+          <div class="qty"><button type="button" data-d="-1" aria-label="Decrease">−</button><input id="qty" type="number" min="1" value="1" aria-label="Quantity"><button type="button" data-d="1" aria-label="Increase">+</button></div>
+          <button class="btn btn-primary" id="add" type="button">Add to RFQ</button>
+        </div>`;
+      const pnEl = $("#pn"), prEl = $("#pr"), errEl = $("#cfg-err"), qtyEl = $("#qty");
+      const update = () => {
+        $$("select[data-key]", cfgEl).forEach(s => state[s.dataset.key] = s.value);
+        const err = cfg?.validate ? cfg.validate(state) : null;
+        errEl.hidden = !err; errEl.textContent = err || "";
+        const pn = cfg ? cfg.pn(state) : p.code;
+        pnEl.textContent = pn;
+        const price = cfg && !err ? cfg.price(state) : null;
+        prEl.innerHTML = price != null ? `${money(price)}<small>per piece · EXW · ${p.stock ? "stock" : "made to order"}</small>` : `—<small>${err ? "fix selection" : "quote on request"}</small>`;
+        renderDrawing(p, state, drawEl, capEl);
+        if (p.calc === "lifter") lifterCalc(state);
+        if (p.calc === "balancer") balancerCalc(state);
+        return { pn, price, err };
+      };
+      cfgEl.oninput = update;
+      cfgEl.onclick = e => {
+        const b = e.target.closest(".qty button"); if (b) { qtyEl.value = Math.max(1, (+qtyEl.value || 1) + +b.dataset.d); return; }
+        if (e.target.closest("#add")) {
+          const { pn, price, err } = update();
+          if (err) { toast(err); return; }
+          const conf = cfg ? cfg.fields.map(f => `${f.label.split(" ")[0]} ${state[f.key]}${f.unit || ""}`).join(" · ") : "";
+          RFQ.add({ pn, id: p.id, name: p.name, conf, price, qty: Math.max(1, +qtyEl.value || 1) });
+          toast(`Added <b>${esc(pn)}</b> to RFQ · <a href="#rfq">review</a>`);
+        }
+      };
+      if (!this.inited) {
+        this.inited = true;
+        $$("[data-cad]", view).forEach(b => b.addEventListener("click", () => toast(`CAD for <b>${esc($("#pn").textContent)}</b> is not connected yet. Ask for it in the RFQ notes.`)));
+      }
+      update();
+      $$(".reveal", view).forEach(e => e.classList.add("in"));
+      window.scrollTo(0, 0);
+    },
+  };
+
+  /* lifter stroke: plate stroke S to clear undercut u + clearance c at angle a */
+  function lifterCalcHTML() {
+    return `<div class="calc">
+      <div class="calc-h">Stroke check <span class="hint">plate stroke needed to clear the undercut at the selected angle</span></div>
+      <div class="opts">
+        <div class="field"><label for="c-u">Undercut depth (mm)</label><input class="input" id="c-u" type="number" step="0.1" min="0" value="4"></div>
+        <div class="field"><label for="c-c">Clearance (mm)</label><input class="input" id="c-c" type="number" step="0.1" min="0" value="1"></div>
+      </div>
+      <div class="calc-out mono" id="c-out"></div>
+    </div>`;
+  }
+  function lifterCalc(state) {
+    const u = +$("#c-u").value || 0, c = +$("#c-c").value || 0, a = (+state.a) * Math.PI / 180, s = +state.s;
+    const S = (u + c) / Math.tan(a), travel = S / Math.cos(a), ok = S <= s;
+    $("#c-out").innerHTML = `S = (${u} + ${c}) / tan ${state.a}° = <b>${S.toFixed(1)} mm</b> plate stroke · rod travel ${travel.toFixed(1)} mm · selected ${s} mm → <span class="${ok ? "ok" : "bad"}">${ok ? "OK" : "choose a longer stroke or a larger angle"}</span>`;
+  }
+  /* slide balancer: slide mass → spring preload and size band */
+  function balancerCalcHTML() {
+    return `<div class="calc">
+      <div class="calc-h">Size check <span class="hint">the balancer carries the slide's full weight at mid-stroke</span></div>
+      <div class="opts">
+        <div class="field"><label for="c-m">Slide mass (kg)</label><input class="input" id="c-m" type="number" step="0.1" min="0" value="9"></div>
+        <div class="field"><label for="c-ang">Travel angle from vertical (°)</label><input class="input" id="c-ang" type="number" step="1" min="0" max="90" value="0"></div>
+      </div>
+      <div class="calc-out mono" id="c-out"></div>
+    </div>`;
+  }
+  function balancerCalc(state) {
+    const m = +$("#c-m").value || 0, ang = Math.min(90, Math.max(0, +$("#c-ang").value || 0));
+    const W = m * 9.81 * Math.cos(ang * Math.PI / 180), mEff = W / 9.81;
+    const fit = Object.entries(SB_BANDS).find(([, [lo, hi]]) => mEff >= lo && mEff <= hi);
+    const sel = SB_BANDS[state.size], ok = mEff >= sel[0] && mEff <= sel[1];
+    $("#c-out").innerHTML = `W = ${m} kg × 9.81 × cos ${ang}° = <b>${W.toFixed(0)} N</b> · preload per spring ${(W / 2).toFixed(0)} N · balance error ≤ ±${(W * .05).toFixed(0)} N<br>`
+      + `selected <b>SB-${state.size}</b> (${sel[0]}–${sel[1]} kg) → <span class="${ok ? "ok" : "bad"}">${ok ? "OK" : fit ? "use SB-" + fit[0] + " (" + fit[1][0] + "–" + fit[1][1] + " kg)" : mEff < 2 ? "below 2 kg: a spring plunger is enough" : "above 80 kg: ask us for a tandem unit"}</span>`;
+  }
+
+  /* ---------------- dimensioned drawings ---------------- */
+  function renderDrawing(p, c, el, cap) {
+    const dim = (x1, y1, x2, y2) => `<path class="ddim" d="M${x1} ${y1}L${x2} ${y2}"/>`;
+    const txt = (x, y, s, cls = "acc", anchor = "middle") => `<text class="dtext ${cls}" x="${x}" y="${y}" text-anchor="${anchor}">${s}</text>`;
+    let svg = "", caption = "";
+    if (p.drawing === "pin") {
+      const d1 = +c.d1, d2 = +c.d2, L = +c.L, l2 = Math.min(+c.l2, L - 10);
+      const k = 3, lenPx = 300, x0 = 60, cy = 78, sx = lenPx / L, headW = 14, headH = d1 * k + 14, l1 = L - l2;
+      const x1 = x0 + headW, x2 = x1 + l1 * sx, x3 = x2 + l2 * sx, yb = cy + headH / 2;
+      svg = `<svg viewBox="0 0 420 180" role="img" aria-label="Stepped ejector pin drawing">
+        <path class="dcenter" d="M${x0 - 14} ${cy}H${x3 + 18}"/>
+        <rect class="dfill" x="${x0}" y="${cy - headH / 2}" width="${headW}" height="${headH}"/>
+        <rect class="dfill" x="${x1}" y="${cy - d1 * k / 2}" width="${(l1 * sx).toFixed(1)}" height="${d1 * k}"/>
+        <rect class="dfill" x="${x2.toFixed(1)}" y="${cy - d2 * k / 2}" width="${(l2 * sx).toFixed(1)}" height="${d2 * k}"/>
+        ${dim(x0, yb + 6, x0, yb + 34)}${dim(x3, cy + d2 * k / 2 + 6, x3, yb + 34)}${dim(x0, yb + 28, x3, yb + 28)}
+        ${txt((x0 + x3) / 2, yb + 24, `L = ${L}`)}
+        ${dim(x2, cy - d1 * k / 2 - 6, x2, cy - d1 * k / 2 - 30)}${dim(x3, cy - d2 * k / 2 - 6, x3, cy - d1 * k / 2 - 30)}${dim(x2, cy - d1 * k / 2 - 24, x3, cy - d1 * k / 2 - 24)}
+        ${txt((x2 + x3) / 2, cy - d1 * k / 2 - 28, `${l2}`)}
+        ${dim(x1 + 20, cy - d1 * k / 2, x1 + 20, cy - d1 * k / 2 - 14)}${dim(x1 + 20, cy + d1 * k / 2, x1 + 20, cy + d1 * k / 2 + 14)}
+        ${txt(x1 + 26, cy - d1 * k / 2 - 6, `Ø${d1} −0.005/−0.015`, "acc", "start")}
+        ${txt(x2 + 8, cy + d2 * k / 2 + 16, `Ø${d2} −0.005/−0.015`, "acc", "start")}
+        ${txt(x0 + headW / 2, cy - headH / 2 - 8, `R0.3 step`, "dim")}
+        ${txt(x0 - 6, cy + 4, `SKD61`, "dim", "end")}
+      </svg>`;
+      caption = `SP · d1 Ø${d1} · d2 Ø${d2} · L ${L} · tip ${l2}`;
+    } else if (p.drawing === "bushing") {
+      const d = +c.d, L = +c.L, wall = Math.max(4, d * .22), D = d + 2 * wall, k = 2, sx = 3;
+      const x0 = 90, cy = 100, w = L * sx, hD = D * k, hd = d * k;
+      const plugs = []; for (let i = 0; i < Math.floor(w / 28); i++) plugs.push(`<circle class="dline" cx="${x0 + 14 + i * 28}" cy="${cy - hd / 2 - wall * k / 2}" r="3"/><circle class="dline" cx="${x0 + 14 + i * 28 + 14}" cy="${cy + hd / 2 + wall * k / 2}" r="3"/>`);
+      svg = `<svg viewBox="0 0 420 200" role="img" aria-label="Guide bushing section">
+        <path class="dcenter" d="M${x0 - 20} ${cy}H${x0 + w + 20}"/>
+        <rect class="dfill" x="${x0}" y="${cy - hD / 2}" width="${w}" height="${hD}"/>
+        <rect class="dthin" x="${x0}" y="${cy - hd / 2}" width="${w}" height="${hd}" style="fill:var(--bg-2)"/>
+        ${plugs.join("")}
+        ${dim(x0, cy - hD / 2 - 6, x0, cy - hD / 2 - 30)}${dim(x0 + w, cy - hD / 2 - 6, x0 + w, cy - hD / 2 - 30)}${dim(x0, cy - hD / 2 - 24, x0 + w, cy - hD / 2 - 24)}
+        ${txt(x0 + w / 2, cy - hD / 2 - 28, `L = ${L}`)}
+        ${dim(x0 + w + 8, cy - hd / 2, x0 + w + 30, cy - hd / 2)}${dim(x0 + w + 8, cy + hd / 2, x0 + w + 30, cy + hd / 2)}${dim(x0 + w + 24, cy - hd / 2, x0 + w + 24, cy + hd / 2)}
+        ${txt(x0 + w + 32, cy + 4, `Ø${d} H7`, "acc", "start")}
+        ${dim(x0 - 8, cy - hD / 2, x0 - 30, cy - hD / 2)}${dim(x0 - 8, cy + hD / 2, x0 - 30, cy + hD / 2)}${dim(x0 - 24, cy - hD / 2, x0 - 24, cy + hD / 2)}
+        ${txt(x0 - 32, cy + 4, `Ø${D} p6`, "acc", "end")}
+        ${txt(x0 + w / 2, cy + hD / 2 + 18, "graphite plugs, both rows", "dim")}
+      </svg>`;
+      caption = `GB · bore Ø${d} H7 · OD Ø${D} p6 · L ${L} · CuSn + graphite`;
+    } else if (p.drawing === "balancer") {
+      const size = c.size, s = +c.s, Wmm = { S: 40, M: 50, L: 64, XL: 80 }[size], spring = { S: 28, M: 34, L: 42, XL: 52 }[size];
+      const Lh = s + 2 * spring + 24, sx = Math.min(1.6, 300 / Lh), k = 1.1;
+      const x0 = 60, cy = 100, w = Lh * sx, h = Wmm * k, sp = spring * sx, pad = 12 * sx;
+      const zig = (x, dir) => { let d = `M${x} ${cy}`; const n = 6, step = sp / n; for (let i = 0; i < n; i++) d += ` l${(dir * step / 2).toFixed(1)} ${i % 2 ? h * .28 : -h * .28} l${(dir * step / 2).toFixed(1)} ${i % 2 ? -h * .28 : h * .28}`; return d; };
+      const xs1 = x0 + pad, xs2 = x0 + w - pad;
+      svg = `<svg viewBox="0 0 420 215" role="img" aria-label="Slide balancer drawing">
+        <path class="dcenter" d="M${x0 - 16} ${cy}H${x0 + w + 16}"/>
+        <rect class="dfill" x="${x0}" y="${cy - h / 2}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" rx="3"/>
+        <path class="dline" d="${zig(xs1, 1)}"/><path class="dline" d="${zig(xs2, -1)}"/>
+        <path class="dline" d="M${(xs1 + sp).toFixed(1)} ${cy}H${(xs2 - sp).toFixed(1)}" stroke-width="3"/>
+        <rect class="dfill" x="${(x0 + w / 2 - 8).toFixed(1)}" y="${cy - h / 2 - 10}" width="16" height="${h + 20}" rx="2"/>
+        <circle class="dline" cx="${x0 + 10}" cy="${cy - h / 2 + 9}" r="3"/><circle class="dline" cx="${x0 + w - 10}" cy="${cy - h / 2 + 9}" r="3"/><circle class="dline" cx="${x0 + 10}" cy="${cy + h / 2 - 9}" r="3"/><circle class="dline" cx="${x0 + w - 10}" cy="${cy + h / 2 - 9}" r="3"/>
+        ${dim(x0, cy - h / 2 - 16, x0, cy - h / 2 - 40)}${dim(x0 + w, cy - h / 2 - 16, x0 + w, cy - h / 2 - 40)}${dim(x0, cy - h / 2 - 34, x0 + w, cy - h / 2 - 34)}
+        ${txt(x0 + w / 2, cy - h / 2 - 38, `${Lh} overall`)}
+        ${dim(xs1 + sp, cy + h / 2 + 8, xs1 + sp, cy + h / 2 + 32)}${dim(xs2 - sp, cy + h / 2 + 8, xs2 - sp, cy + h / 2 + 32)}${dim(xs1 + sp, cy + h / 2 + 26, xs2 - sp, cy + h / 2 + 26)}
+        ${txt(x0 + w / 2, cy + h / 2 + 44, `stroke ${s}`)}
+        ${dim(x0 + w + 10, cy - h / 2, x0 + w + 32, cy - h / 2)}${dim(x0 + w + 10, cy + h / 2, x0 + w + 32, cy + h / 2)}${dim(x0 + w + 26, cy - h / 2, x0 + w + 26, cy + h / 2)}
+        ${txt(x0 + w + 34, cy + 4, `${Wmm}`, "acc", "start")}
+        ${txt(x0 - 8, cy - h / 2 + 12, "M" + (size === "S" || size === "M" ? 6 : 8), "dim", "end")}
+        ${txt(210, 206, "collar bolts to slide back · each spring preloaded to ½ slide weight", "dim")}
+      </svg>`;
+      caption = `SB-${size}-${s} · ${Lh} × ${Wmm} mm · spring ${spring} mm · stroke ${s}`;
+    } else if (p.drawing === "cyl") {
+      const b = +c.b, s = +c.s, k = 1.6, sx = Math.min(1.6, 320 / (2 * s + 50)), x0 = 60, cy = 90;
+      const bw = (s + 50) * sx, bh = (b + 36) * k, rh = Math.max(8, b * .5 * k), rl = s * sx;
+      svg = `<svg viewBox="0 0 420 180" role="img" aria-label="Block cylinder drawing">
+        <path class="dcenter" d="M${x0 - 16} ${cy}H${x0 + bw + rl + 40}"/>
+        <rect class="dfill" x="${x0}" y="${cy - bh / 2}" width="${bw}" height="${bh}" rx="3"/>
+        <rect class="dthin" x="${x0 + 16}" y="${cy - b * k / 2}" width="${bw - 32}" height="${b * k}" stroke-dasharray="4 3"/>
+        <rect class="dfill" x="${x0 + bw}" y="${cy - rh / 2}" width="${rl}" height="${rh}"/>
+        <rect class="dfill" x="${x0 + bw + rl}" y="${cy - rh / 2 - 6}" width="12" height="${rh + 12}"/>
+        <circle class="dline" cx="${x0 + 14}" cy="${cy - bh / 2 + 10}" r="3"/><circle class="dline" cx="${x0 + bw - 14}" cy="${cy - bh / 2 + 10}" r="3"/>
+        ${dim(x0 + bw, cy + rh / 2 + 8, x0 + bw, cy + rh / 2 + 32)}${dim(x0 + bw + rl, cy + rh / 2 + 14, x0 + bw + rl, cy + rh / 2 + 32)}${dim(x0 + bw, cy + rh / 2 + 26, x0 + bw + rl, cy + rh / 2 + 26)}
+        ${txt(x0 + bw + rl / 2, cy + rh / 2 + 22, `stroke ${s}`)}
+        ${dim(x0 - 8, cy - b * k / 2, x0 - 30, cy - b * k / 2)}${dim(x0 - 8, cy + b * k / 2, x0 - 30, cy + b * k / 2)}${dim(x0 - 24, cy - b * k / 2, x0 - 24, cy + b * k / 2)}
+        ${txt(x0 - 32, cy + 4, `Ø${b} bore`, "acc", "end")}
+        ${txt(x0 + 14, cy - bh / 2 - 8, "sensor S1", "dim")}${txt(x0 + bw - 14, cy - bh / 2 - 8, "sensor S2", "dim")}
+        ${txt(x0 + bw / 2, cy + bh / 2 + 14, "ports G1/4, rear", "dim")}
+      </svg>`;
+      caption = `HC · bore Ø${b} · stroke ${s} · 14 MPa · FKM seals`;
+    } else {
+      svg = `<div class="fig-big">${p.fig}</div>`;
+      caption = `${p.code} · ${p.tag}`;
+    }
+    el.innerHTML = svg;
+    cap.innerHTML = `<span>${esc(caption)}</span><span>UNITS mm · NOT TO SCALE</span>`;
+  }
+
+  /* ================= SERVICES ================= */
+  const services = { init(anchor) { const view = $('main[data-view="services"]'); initReveal(view); scrollToAnchor(view, anchor); } };
+
+  /* ================= RFQ ================= */
+  const rfq = {
+    inited: false,
+    init(type) {
+      const list = $("#rfq-items"), form = $("#rfq-form"), out = $("#rfq-out"), outText = $("#rfq-text"),
+        typeSel = $("#f-type"), notes = $("#f-notes"), sum = $("#rfq-sum");
+      const render = () => {
+        const items = RFQ.load();
+        list.innerHTML = items.length ? items.map(i => `<div class="rfq-item" data-pn="${esc(i.pn)}">
+            <div><div class="pn">${esc(i.pn)}</div><div class="nm">${esc(i.name)}</div>${i.conf ? `<div class="cf">${esc(i.conf)}</div>` : ""}</div>
+            <div class="qty"><button type="button" data-d="-1" aria-label="Decrease">−</button><input type="number" min="1" value="${i.qty}" aria-label="Quantity"><button type="button" data-d="1" aria-label="Increase">+</button></div>
+            <button class="rm" type="button" aria-label="Remove ${esc(i.pn)}">×</button>
+          </div>`).join("")
+          : `<div class="empty">Your RFQ list is empty. <a class="btn btn-sm" href="#products">Browse components</a><br><br><span class="muted">A design project does not need items here. Describe the part in the form.</span></div>`;
+        const n = items.reduce((a, i) => a + i.qty, 0), est = items.reduce((a, i) => a + (i.price || 0) * i.qty, 0);
+        sum.innerHTML = items.length ? `<span>${items.length} lines · ${n} pcs</span><span>list est. ${money(est)} before volume pricing</span>` : "";
+      };
+      if (!this.inited) {
+        this.inited = true;
+        list.addEventListener("click", e => {
+          const row = e.target.closest(".rfq-item"); if (!row) return;
+          const pn = row.dataset.pn;
+          if (e.target.closest(".rm")) { RFQ.remove(pn); render(); return; }
+          const b = e.target.closest("button[data-d]"); if (b) { RFQ.setQty(pn, (+$("input", row).value || 1) + +b.dataset.d); render(); }
+        });
+        list.addEventListener("change", e => { const row = e.target.closest(".rfq-item"); if (row && e.target.matches("input")) { RFQ.setQty(row.dataset.pn, +e.target.value || 1); render(); } });
+        form.addEventListener("submit", e => {
+          e.preventDefault();
+          const f = Object.fromEntries(new FormData(form).entries());
+          if (!f.company || !f.email) { toast("Company and email are required."); return; }
+          const items = RFQ.load();
+          const text = [
+            `RFQ — ${NM.brand}`, `Date: ${new Date().toISOString().slice(0, 10)}`,
+            `Type: ${typeSel.options[typeSel.selectedIndex].text}`, "",
+            `Company: ${f.company}`, `Contact: ${f.name || "-"}`, `Email: ${f.email}`, `Phone: ${f.phone || "-"}`, `Country: ${f.country || "-"}`, "",
+            "Items:", ...(items.length ? items.map((i, n) => `  ${n + 1}. ${i.pn}  ${i.name}${i.conf ? " (" + i.conf + ")" : ""}  × ${i.qty}`) : ["  (none)"]), "",
+            "Notes:", f.notes || "-",
+          ].join("\n");
+          outText.value = text; out.classList.add("show");
+          $("#rfq-mail").href = `mailto:${NM.contact.email}?subject=${encodeURIComponent("RFQ " + f.company)}&body=${encodeURIComponent(text)}`;
+          out.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
+        });
+        $("#rfq-copy").addEventListener("click", async () => {
+          try { await navigator.clipboard.writeText(outText.value); toast("RFQ copied."); }
+          catch { outText.select(); toast("Select the text and copy it."); }
+        });
+        $("#rfq-clear").addEventListener("click", () => { RFQ.clear(); render(); });
+      }
+      if (type === "design") {
+        typeSel.value = "design";
+        if (!notes.value) notes.value = "Part: (STEP by email)\nResin: \nAnnual volume / shot count: \nCavitation: \nPress: tonnage, tie-bar spacing, max mold height\nTarget date for T1: ";
+      }
+      render();
+      window.scrollTo(0, 0);
+    },
+  };
+
+  /* ================= ROUTER ================= */
+  const VIEWS = { home, products, product, services, rfq };
+  const TITLES = { home: "", products: "Components", services: "Design → Mold", rfq: "RFQ" };
+  let current = null;
+  function parseHash() {
+    const h = decodeURIComponent((location.hash || "").replace(/^#\/?/, ""));
+    const m = h.match(/^([a-z]+)(?:-(.+))?$/i);
+    return m && VIEWS[m[1].toLowerCase()] ? { name: m[1].toLowerCase(), arg: m[2] || "" } : { name: "home", arg: "" };
+  }
+  function scrollToAnchor(view, anchor) {
+    const el = anchor && $(`#${CSS.escape(anchor)}`, view);
+    if (el) requestAnimationFrame(() => el.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" }));
+    else window.scrollTo(0, 0);
+  }
+  function route() {
+    const { name, arg } = parseHash();
+    if (current && current !== name) VIEWS[current].leave?.();
+    Object.keys(VIEWS).forEach(v => { $(`main[data-view="${v}"]`).hidden = v !== name; });
+    $$(".nav-links a").forEach(a => {
+      const h = (a.getAttribute("href") || "").replace(/^#/, "");
+      const on = h === name || (h === "products" && name === "product");
+      if (on) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+    });
+    $(".nav")?.classList.remove("open");
+    if (name !== "product") document.title = (TITLES[name] ? TITLES[name] + " · " : "") + NM.brand;
+    VIEWS[name].init(arg);
+    current = name;
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const nav = $(".nav"), tg = $(".nav-toggle");
+    tg?.addEventListener("click", () => { const open = nav.classList.toggle("open"); tg.setAttribute("aria-expanded", open); });
+    $$("[data-brand]").forEach(el => el.textContent = NM.brand);
+    $$("[data-contact]").forEach(el => el.textContent = NM.contact[el.dataset.contact] || "");
+    $$("[data-year]").forEach(el => el.textContent = new Date().getFullYear());
+    $$("[data-fam-count]").forEach(el => { const n = NM.products.filter(p => p.family === el.dataset.famCount).length; el.textContent = n + (n === 1 ? " product" : " products"); });
+    updateCount();
+    window.addEventListener("hashchange", route);
+    route();
+  });
+})();
+
+</script>

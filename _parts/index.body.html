@@ -1,0 +1,253 @@
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="eyebrow">Standard components · Mold design · Dongguan</span>
+      <h1>Mold problems, solved as <em>standard parts</em>.</h1>
+      <p class="lede">A heavy slide sags. A lifter galls. A deep rib will not vent. Every shop patches these with a one-off fix. We design the fix once, size it S to XL, and put it in the catalog with a drawing and a STEP file.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#products">Browse components</a>
+        <a class="btn" href="#rfq-design">Send a part for DFM</a>
+      </div>
+      <div class="hero-meta">
+        <span><b>12</b> component families</span>
+        <span>DFM reply <b>48 h</b></span>
+        <span>Stock parts ship <b>3–5 days</b></span>
+      </div>
+    </div>
+    <div class="hero-stage" aria-label="Animated wireframe of a two-plate mold opening, ejecting and closing">
+      <canvas id="hero-canvas"></canvas>
+      <div class="hud tl"><span class="dot"></span>2-PLATE · 300 × 300 · PP</div>
+      <div class="hud tr">CYCLE <b id="hud-cycle">1 204 317</b></div>
+      <div class="hud bl">PARTING LINE <b id="hud-gap">CLOSED</b></div>
+      <div class="hud br"><b id="hud-state">INJECT / HOLD</b></div>
+    </div>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="wrap">
+    <div class="stat"><div class="v">±5<span>%</span></div><div class="k">balance error over the full stroke, SB slide balancer</div></div>
+    <div class="stat"><div class="v">80<span> kg</span></div><div class="k">slide mass carried without a counterweight</div></div>
+    <div class="stat"><div class="v">48<span> h</span></div><div class="k">from part file to DFM report</div></div>
+    <div class="stat"><div class="v">1×10<span>⁶</span></div><div class="k">rated cycles on every mechanical unit</div></div>
+  </div>
+</section>
+
+<section class="section" id="balancer">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Flagship · new for 2026</span>
+      <h2>Dual-spring slide balancer</h2>
+      <p>The part that started the catalog. A slide that travels vertically on the press has to fight its own weight. The SB cancels that weight, so the slide, retainer and angle pin can be designed as if gravity were not there.</p>
+    </div>
+    <div class="flag">
+      <div class="flag-copy reveal">
+        <div class="sku">SB · sizes S–XL · stroke 20–120 mm · 100 % mechanical</div>
+        <div class="compare">
+          <div>
+            <div class="lbl"><span>Without</span><b class="bad">slide drops, Δ ≠ 0</b></div>
+            <svg viewBox="0 0 220 150" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-label="Slide sags when the angle pin releases it">
+              <path d="M40 12v126"/><path d="M40 12h-14v126h14" opacity=".4"/>
+              <path d="M150 18l-44 56" stroke-dasharray="4 4" opacity=".5"/>
+              <rect x="44" y="52" width="48" height="34" rx="2" stroke-dasharray="3 3" opacity=".45"/>
+              <g class="a-sag"><rect class="s-acc f-acc" x="44" y="52" width="48" height="34" rx="2"/><path d="M44 69h48" opacity=".35"/><path class="s-warn" d="M96 86h12"/></g>
+              <path class="s-warn" d="M96 86h12" opacity=".5"/><text x="112" y="98" class="t-dim">Δ</text>
+              <path d="M130 58v40" class="s-warn"/><path d="M125 93l5 5 5-5" class="s-warn"/>
+              <text x="138" y="82" class="t-dim">m·g</text>
+              <text x="60" y="132" class="t-dim">ANGLE PIN OUT</text>
+            </svg>
+            <p>Once the angle pin leaves the slide, nothing holds it but the retainer. It drifts down, the retainer wears, and the pin takes a side load on every close.</p>
+          </div>
+          <div>
+            <div class="lbl"><span>With SB</span><b class="good">held, Δ = 0</b></div>
+            <svg viewBox="0 0 220 150" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-label="Two springs hold the slide in place">
+              <path d="M40 12v126"/><path d="M40 12h-14v126h14" opacity=".4"/>
+              <path d="M150 18l-44 56" stroke-dasharray="4 4" opacity=".5"/>
+              <rect x="44" y="20" width="20" height="98" rx="2" opacity=".6"/>
+              <path class="s-acc" d="M54 24v2l5 3-10 3 10 3-10 3 10 3-5 3v2"/>
+              <path class="s-acc" d="M54 114v-2l5-3-10-3 10-3-10-3 10-3-5-3v-2"/>
+              <path class="s-acc" d="M54 46v46"/>
+              <g class="a-hold"><rect class="s-acc f-acc" x="66" y="52" width="48" height="34" rx="2"/><path class="s-acc" d="M60 66h6v6h-6z"/></g>
+              <path d="M130 58v40" class="s-ok" opacity=".8"/><path d="M125 93l5 5 5-5" class="s-ok" opacity=".8"/>
+              <path d="M152 98V58" class="s-ok" opacity=".8"/><path d="M147 63l5-5 5 5" class="s-ok" opacity=".8"/>
+              <text x="134" y="82" class="t-dim">m·g</text><text x="158" y="82" class="t-dim">F</text>
+              <text x="60" y="132" class="t-dim">ΣF = 0 · ANY POSITION</text>
+            </svg>
+            <p>Two opposed die springs push on a floating rod bolted to the slide back. Preload equals the slide weight at mid-stroke and stays within ±5 % over the travel.</p>
+          </div>
+        </div>
+        <dl>
+          <dt>Replaces</dt><dd>counterweight · tuned spring plunger · oversized retainer</dd>
+          <dt>Pocket</dt><dd>one standard pocket per size, 4 bolts from the slide back</dd>
+          <dt>Service</dt><dd>springs swap from the parting line, no slide removal</dd>
+        </dl>
+      </div>
+      <div class="flag-tools reveal">
+        <div class="sizer">
+          <div class="calc-h">Size it <span class="hint">enter the slide mass, we pick the unit</span></div>
+          <div class="row">
+            <div class="field"><label for="sz-m">Slide mass (kg)</label><input class="input" id="sz-m" type="number" min="0" step="0.5" value="9"></div>
+            <div class="field"><label for="sz-s">Stroke (mm)</label><select class="select" id="sz-s"><option>20</option><option>40</option><option selected>60</option><option>80</option><option>100</option><option>120</option></select></div>
+          </div>
+          <div class="bands" aria-label="Size bands">
+            <div class="band" data-size="S"><b>S</b>2–6 kg</div>
+            <div class="band" data-size="M"><b>M</b>5–15 kg</div>
+            <div class="band" data-size="L"><b>L</b>12–35 kg</div>
+            <div class="band" data-size="XL"><b>XL</b>30–80 kg</div>
+          </div>
+          <div class="sizer-out" id="sz-out"></div>
+          <a class="btn btn-primary btn-block" id="sz-go" href="#product-SB">Configure the SB</a>
+        </div>
+        <p class="notes">Slide travelling at an angle to vertical? Use the angle field on the product page; the balancer only has to carry the weight component along the travel.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="what">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">What we do</span>
+      <h2>Between the part design and the mold.</h2>
+      <p>Three things, and they feed each other. Problems we meet in mold design become components. Components we make shape how we design molds.</p>
+    </div>
+    <div class="feat-grid three">
+      <div class="feat reveal">
+        <svg class="ic" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="8" width="28" height="9" rx="1.5"/><rect x="4" y="19" width="28" height="9" rx="1.5"/><path d="M10 17v2M26 17v2"/></svg>
+        <h3>Standard components</h3>
+        <p>Twelve designs across slides, ejection, guiding, traceability and venting. Every one is a problem we have solved more than once, drawn as a sized series with one part-number logic.</p>
+        <span class="spec">STOCK SIZES SHIP IN 3–5 DAYS</span>
+      </div>
+      <div class="feat reveal">
+        <svg class="ic" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 28L18 6l12 22z"/><path d="M12 28l6-11 6 11"/><path d="M4 32h28"/></svg>
+        <h3>Mold design</h3>
+        <p>DFM review of your part in 48 hours, then the full mold: layout, steel, cooling, ejection, slides and a BOM that calls standard parts by number. NX or SolidWorks, Moldflow on request.</p>
+        <span class="spec">3D ASSEMBLY · 2D DRAWINGS · BOM</span>
+      </div>
+      <div class="feat reveal">
+        <svg class="ic" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 30V12l12-6 12 6v18"/><path d="M6 12l12 6 12-6M18 18v12"/></svg>
+        <h3>Build &amp; trial</h3>
+        <p>Build at partner toolrooms under our drawings, core and cavity checked on CMM, T0/T1 attended by the engineer who designed the mold. You get a measured sample report, not a photo.</p>
+        <span class="spec">T1 IN 25–35 WORKING DAYS FROM DESIGN RELEASE</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="families">
+  <div class="wrap">
+    <div class="section-head row">
+      <div>
+        <span class="eyebrow">Component families</span>
+        <h2>Five families, twelve designs.</h2>
+      </div>
+      <a class="btn" href="#products">All components</a>
+    </div>
+    <div class="cat-grid five">
+      <a class="cat reveal" href="#products-slides">
+        <svg class="ic" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="34" width="44" height="8"/><rect x="14" y="20" width="18" height="14" rx="1"/><path d="M40 10l-14 24"/></svg>
+        <h3>Slides &amp; undercuts</h3><p>Balancer, retainer, mini slide, flex lifter.</p>
+        <span class="n" data-fam-count="slides">4 products</span>
+        <svg class="arrow" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 14L14 4M7 4h7v7"/></svg>
+      </a>
+      <a class="cat reveal" href="#products-ejection">
+        <svg class="ic" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="40" width="40" height="6"/><rect x="8" y="32" width="40" height="6"/><path d="M18 32V10M28 32V14M38 32V10"/></svg>
+        <h3>Ejection</h3><p>Two-stage, accelerated, one-piece stepped pins.</p>
+        <span class="n" data-fam-count="ejection">3 products</span>
+        <svg class="arrow" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 14L14 4M7 4h7v7"/></svg>
+      </a>
+      <a class="cat reveal" href="#products-guiding">
+        <svg class="ic" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="16" y="14" width="24" height="28" rx="3"/><path d="M4 24h48M4 32h48"/><circle cx="22" cy="20" r="1.5" fill="currentColor"/><circle cx="34" cy="20" r="1.5" fill="currentColor"/><circle cx="28" cy="36" r="1.5" fill="currentColor"/></svg>
+        <h3>Guiding &amp; wear</h3><p>Self-lube bushings, no grease on the part.</p>
+        <span class="n" data-fam-count="guiding">1 product</span>
+        <svg class="arrow" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 14L14 4M7 4h7v7"/></svg>
+      </a>
+      <a class="cat reveal" href="#products-trace">
+        <svg class="ic" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="28" cy="28" r="18"/><circle cx="28" cy="28" r="7"/><path d="M28 21v-8M28 10v3M46 28h-3M10 28h3M28 46v-3"/></svg>
+        <h3>Traceability</h3><p>Date stamps and a counter that reports.</p>
+        <span class="n" data-fam-count="trace">2 products</span>
+        <svg class="arrow" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 14L14 4M7 4h7v7"/></svg>
+      </a>
+      <a class="cat reveal" href="#products-venting">
+        <svg class="ic" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="30" width="40" height="16"/><path d="M18 30V14M28 30V10M38 30V14" stroke-dasharray="3 3"/><circle cx="16" cy="38" r="1.2" fill="currentColor"/><circle cx="24" cy="38" r="1.2" fill="currentColor"/><circle cx="32" cy="38" r="1.2" fill="currentColor"/><circle cx="40" cy="38" r="1.2" fill="currentColor"/></svg>
+        <h3>Venting &amp; cooling</h3><p>Sintered vents, block cylinders with sensing.</p>
+        <span class="n" data-fam-count="venting">2 products</span>
+        <svg class="arrow" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 14L14 4M7 4h7v7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="new">
+  <div class="wrap">
+    <div class="section-head row">
+      <div>
+        <span class="eyebrow">New for 2026</span>
+        <h2>This year's additions.</h2>
+      </div>
+      <a class="btn" href="#products">See all 12</a>
+    </div>
+    <div class="prod-grid" id="featured"></div>
+  </div>
+</section>
+
+<section class="section" id="origin">
+  <div class="wrap">
+    <div class="origin">
+      <div class="prose reveal">
+        <span class="eyebrow">How a part gets into the catalog</span>
+        <h2>From a floor fix to a part number.</h2>
+        <p><strong>We do not start from a product idea. We start from a mold that is giving someone trouble.</strong> The balancer began as a counterweight welded onto a 22 kg slide in a customer's tool. It worked, it was ugly, and the next mold needed a different one.</p>
+        <p>So we drew the mechanism as a cartridge, set the spring preload from the slide mass instead of by trial, ran it on the live mold for a full maintenance interval, then sized it S to XL. Now it is a part number with a pocket drawing, and the next slide takes an afternoon instead of a week.</p>
+        <p>Every component on this site went through the same four steps. If you have a mold with a recurring problem and no standard part for it, that is exactly what we want to hear about.</p>
+        <a class="btn" href="#rfq-design">Describe the problem</a>
+      </div>
+      <div class="steps reveal">
+        <div class="step"><h3>Problem on the floor</h3><p>A slide that sags, a lifter that galls, a rib that burns. Seen on a customer mold or on one we designed.</p><span class="t">INPUT: THE MOLD, THE CYCLE DATA</span></div>
+        <div class="step"><h3>Fix on a live mold</h3><p>We design the fix for that one tool and run it in production for a full PM interval, with cycle counts logged.</p><span class="t">OUTPUT: A PROVEN ONE-OFF</span></div>
+        <div class="step"><h3>Serialize</h3><p>Sizes S to XL, one pocket drawing per size, one part-number logic. Materials and tolerances fixed.</p><span class="t">OUTPUT: DRAWING SET + TEST REPORT</span></div>
+        <div class="step"><h3>Catalog</h3><p>STEP and 2D for every size, specs, a sizing tool on the product page, and stock of the common sizes.</p><span class="t">OUTPUT: A PART NUMBER YOU CAN ORDER</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="industries">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Where the parts run</span>
+      <h2>Molds we design for.</h2>
+    </div>
+    <div class="ind-row">
+      <span class="ind"><b>Consumer electronics</b> · housings, bezels, thin walls</span>
+      <span class="ind"><b>Medical</b> · grease-free guiding, clean-room ejection</span>
+      <span class="ind"><b>Automotive interior</b> · large slides, grained faces</span>
+      <span class="ind"><b>Packaging</b> · high cycle counts, two-stage ejection</span>
+      <span class="ind"><b>Housewares</b> · deep draws, vertical slides</span>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap">
+    <div>
+      <h2>Send us a part. We send back a mold plan.</h2>
+      <p>STEP file, resin, volume and press. Within 48 hours you get a marked-up model, a parting and gating proposal, and the component list the mold would use.</p>
+    </div>
+    <a class="btn btn-primary" href="#rfq-design">Start a project</a>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Contact</span>
+      <h2>Talk to the engineer, not a form.</h2>
+    </div>
+    <div class="contact-grid">
+      <div><h3>Email</h3><p class="mono" data-contact="email">sales@nexmold.example</p><p>Drawings and STEP files welcome. We reply the same working day.</p></div>
+      <div><h3>Phone / WeChat</h3><p class="mono" data-contact="phone">+86 000 0000 0000</p><p>Mon–Sat 08:30–18:00 CST. English and Chinese.</p></div>
+      <div><h3>Visit</h3><p data-contact="address">Dongguan, Guangdong, China</p><p>Design office and component stock. Partner toolrooms within 40 km.</p></div>
+    </div>
+  </div>
+</section>

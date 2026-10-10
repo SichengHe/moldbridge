@@ -1,0 +1,26 @@
+<section class="page-head">
+  <div class="wrap">
+    <div class="crumbs"><a href="#home">Home</a><span>/</span><span>Components</span></div>
+    <h1>Components</h1>
+    <p>Twelve designs, each a standard answer to a problem that used to need a custom fix. Pick a size on the product page and you get a part number, a price and a lead time.</p>
+  </div>
+</section>
+<div class="wrap catalog">
+  <aside class="filters" aria-label="Filters">
+    <fieldset id="fam-filters"><legend>Family</legend></fieldset>
+    <fieldset>
+      <legend>Show only</legend>
+      <label><input type="checkbox" id="only-new"> New for 2026</label>
+      <label><input type="checkbox" id="only-stock"> In stock</label>
+    </fieldset>
+    <button class="btn btn-sm" id="clear" type="button">Clear filters</button>
+  </aside>
+  <div>
+    <div class="toolbar">
+      <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input class="input" id="q" type="search" placeholder="Search part, material, problem…" aria-label="Search components"></div>
+      <div class="count" id="count"></div>
+      <div class="field"><label for="sort" class="lbl">Sort</label><select class="select" id="sort"><option value="featured">Featured</option><option value="name">Name A–Z</option><option value="lead">Lead time</option><option value="price">Price, low to high</option></select></div>
+    </div>
+    <div class="prod-grid" id="grid"></div>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+<section class="page-head">
+  <div class="wrap">
+    <div class="crumbs"><a href="#home">Home</a><span>/</span><span>RFQ</span></div>
+    <span class="eyebrow">Request for quotation</span>
+    <h1>Your RFQ.</h1>
+    <p>Components you configured are listed here. Fill in the contact details and we build the RFQ text for you to send; nothing leaves this page by itself.</p>
+  </div>
+</section>
+<div class="wrap rfq-layout">
+  <div>
+    <div class="rfq-list" id="rfq-items"></div>
+    <div class="rfq-summary" id="rfq-sum"></div>
+    <div class="buy-row" style="margin-top:.8rem">
+      <a class="btn btn-sm" href="#products">Add more components</a>
+      <button class="btn btn-sm" id="rfq-clear" type="button">Clear list</button>
+    </div>
+  </div>
+  <div>
+    <form class="rfq-form" id="rfq-form" novalidate>
+      <div class="field"><label for="f-type">Request type</label>
+        <select class="select" id="f-type" name="type"><option value="components">Components quote</option><option value="design">Design + mold project</option></select>
+      </div>
+      <div class="two">
+        <div class="field"><label for="f-company">Company *</label><input class="input" id="f-company" name="company" required autocomplete="organization"></div>
+        <div class="field"><label for="f-name">Contact name</label><input class="input" id="f-name" name="name" autocomplete="name"></div>
+      </div>
+      <div class="two">
+        <div class="field"><label for="f-email">Email *</label><input class="input" id="f-email" name="email" type="email" required autocomplete="email"></div>
+        <div class="field"><label for="f-phone">Phone / WeChat</label><input class="input" id="f-phone" name="phone" autocomplete="tel"></div>
+      </div>
+      <div class="field"><label for="f-country">Country / region</label><input class="input" id="f-country" name="country" autocomplete="country-name"></div>
+      <div class="field"><label for="f-notes">Notes, part description, special sizes</label><textarea class="input" id="f-notes" name="notes"></textarea></div>
+      <button class="btn btn-primary btn-block" type="submit">Build RFQ text</button>
+      <div class="rfq-out" id="rfq-out">
+        <div class="field"><label for="rfq-text">RFQ text</label><textarea class="input" id="rfq-text" readonly></textarea></div>
+        <div class="buy-row">
+          <button class="btn btn-primary" type="button" id="rfq-copy">Copy</button>
+          <a class="btn" id="rfq-mail" href="#rfq">Open in email</a>
+        </div>
+        <p class="hint">If the email button does nothing in your browser, paste the copied text into a message to <span data-contact="email">sales@nexmold.example</span>.</p>
+      </div>
+    </form>
+  </div>
+</div>
