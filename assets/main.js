@@ -430,6 +430,30 @@
   /* ================= SERVICES ================= */
   const services = { init(anchor) { const view = $('main[data-view="services"]'); initReveal(view); scrollToAnchor(view, anchor); } };
 
+
+  /* ================= FAQ ================= */
+  const faq = {
+    inited: false,
+    init(anchor) {
+      const view = $('main[data-view="faq"]'), list = $("#faq-list"), cats = $("#faq-cats"), q = $("#faq-q");
+      const esc2 = esc;
+      const render = () => {
+        const term = q.value.trim().toLowerCase();
+        const match = f => !term || [f.q, f.zh_q, f.a, f.zh, ...f.kw].join(" ").toLowerCase().includes(term);
+        const groups = NM.faqCats.map(c => ({ c, items: NM.faq.filter(f => f.cat === c.id && match(f)) })).filter(g => g.items.length);
+        list.innerHTML = groups.length ? groups.map(g => `<section class="faq-group" id="faq-${g.c.id}"><h2>${esc2(g.c.name)}<small>${esc2(g.c.zh)} · ${g.items.length}</small></h2>
+          ${g.items.map(f => `<details class="faq-item" id="faq-${f.id}"${term ? " open" : ""}><summary><span class="qt">${esc2(f.q)}<span class="zh">${esc2(f.zh_q || "")}</span></span></summary>
+            <div class="ans"><p>${esc2(f.a)}</p>${f.zh ? `<p class="zh">${esc2(f.zh)}</p>` : ""}${f.link ? `<a class="more" href="${f.link[0]}">${esc2(f.link[1])} →</a>` : ""}</div></details>`).join("")}</section>`).join("")
+          : `<div class="faq-empty">Nothing matches "${esc2(q.value)}". <button class="btn btn-sm" type="button" data-ask="${esc2(q.value)}">Ask the assistant</button></div>`;
+        cats.innerHTML = NM.faqCats.map(c => `<a href="#faq-${c.id}">${esc2(c.name)}<span>${NM.faq.filter(f => f.cat === c.id).length}</span></a>`).join("");
+      };
+      if (!this.inited) { this.inited = true; q.addEventListener("input", render); }
+      render();
+      if (anchor) { const d = $(`#faq-${CSS.escape(anchor)}`, view); if (d && d.tagName === "DETAILS") d.open = true; }
+      scrollToAnchor(view, anchor ? "faq-" + anchor : "");
+    },
+  };
+
   /* ================= RFQ ================= */
   const rfq = {
     inited: false,
@@ -478,6 +502,7 @@
         });
         $("#rfq-clear").addEventListener("click", () => { RFQ.clear(); render(); });
       }
+      try { const pre = sessionStorage.getItem("nm_rfq_prefill"); if (pre) { notes.value = (notes.value ? notes.value + "\n" : "") + pre; sessionStorage.removeItem("nm_rfq_prefill"); } } catch {}
       if (type === "design") {
         typeSel.value = "design";
         if (!notes.value) notes.value = "Part: (STEP by email)\nResin: \nAnnual volume / shot count: \nCavitation: \nPress: tonnage, tie-bar spacing, max mold height\nTarget date for T1: ";
@@ -488,8 +513,8 @@
   };
 
   /* ================= ROUTER ================= */
-  const VIEWS = { home, products, product, services, rfq };
-  const TITLES = { home: "", products: "Components", services: "Design → Mold", rfq: "RFQ" };
+  const VIEWS = { home, products, product, services, rfq, faq };
+  const TITLES = { home: "", products: "Components", services: "Design → Mold", rfq: "RFQ", faq: "FAQ" };
   let current = null;
   function parseHash() {
     const h = decodeURIComponent((location.hash || "").replace(/^#\/?/, ""));

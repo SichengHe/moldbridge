@@ -9,7 +9,7 @@ A = lambda n: (root / "assets" / n).read_text(encoding="utf-8")
 FONTS = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Saira:wght@500;600;700&display=swap">'
 DESC = "Standard mold components that solve recurring mold problems (slide balancer, two-stage ejection, self-lube guiding) plus design-to-mold engineering."
 views = [("home", "index.body.html"), ("products", "products.body.html"), ("product", "product.body.html"),
-         ("services", "services.body.html"), ("rfq", "rfq.body.html")]
+         ("services", "services.body.html"), ("rfq", "rfq.body.html"), ("faq", "faq.body.html")]
 mains = "\n".join(f'<main data-view="{v}"{"" if v == "home" else " hidden"}>\n{P(f)}\n</main>' for v, f in views)
 nav = P("nav.html")
 footer = P("footer.html")
@@ -45,9 +45,16 @@ artifact = f"""<title>MOLDBRIDGE</title>
 {footer_noscript}
 <script>
 {A("catalog.js")}
+{A("faq.js")}
 {A("main.js")}
+{A("assistant.js")}
 </script>
 """
 (root / "dist").mkdir(exist_ok=True)
 (root / "dist" / "artifact.html").write_text(artifact, encoding="utf-8")
+import subprocess
+try:
+    subprocess.run(["node", str(root / "tools" / "knowledge.js")], check=True)
+except Exception as e:
+    print("knowledge.md not regenerated (node missing?):", e)
 print(f"index.html {len(local)//1024} KB · dist/artifact.html {len(artifact)//1024} KB")

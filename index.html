@@ -20,7 +20,7 @@
     <ul class="nav-links">
       <li><a href="#products">Components</a></li>
       <li><a href="#services">Design → Mold</a></li>
-      <li><a href="#home-origin">How parts get made</a></li>
+      <li><a href="#faq">FAQ</a></li>
       <li><a href="#home-contact">Contact</a></li>
     </ul>
     <div class="nav-cta">
@@ -515,6 +515,29 @@
 </div>
 
 </main>
+<main data-view="faq" hidden>
+<section class="page-head">
+  <div class="wrap">
+    <div class="crumbs"><a href="#home">Home</a><span>/</span><span>FAQ</span></div>
+    <span class="eyebrow">Questions we get every week</span>
+    <h1>FAQ</h1>
+    <p>Ordering, delivery, materials, sizing and the engineering service. Answers in English and 中文. If yours is not here, the assistant in the corner searches the catalog too, and anything it cannot answer goes straight to a sales engineer.</p>
+  </div>
+</section>
+<div class="wrap faq-layout">
+  <aside class="faq-side">
+    <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input class="input" id="faq-q" type="search" placeholder="Search questions… / 搜索" aria-label="Search FAQ"></div>
+    <nav class="faq-cats" id="faq-cats" aria-label="FAQ sections"></nav>
+    <div class="faq-cta">
+      <p class="muted">Still stuck?</p>
+      <button class="btn btn-sm btn-primary" type="button" data-ask="">Ask the assistant</button>
+      <a class="btn btn-sm" href="#rfq">Write to sales</a>
+    </div>
+  </aside>
+  <div class="faq-list" id="faq-list"></div>
+</div>
+
+</main>
 <footer class="footer">
   <div class="wrap">
     <div class="cols">
@@ -538,6 +561,7 @@
           <li><a href="#services">Design → Mold</a></li>
           <li><a href="#services-dfm">DFM review</a></li>
           <li><a href="#services-send">What to send us</a></li>
+          <li><a href="#faq">FAQ</a></li>
           <li><a href="#home-origin">How parts get made</a></li>
           <li><a href="#rfq">Request for quotation</a></li>
         </ul>
@@ -559,7 +583,9 @@
   </div>
 </footer>
 <script src="assets/catalog.js"></script>
+<script src="assets/faq.js"></script>
 <script src="assets/main.js"></script>
+<script src="assets/assistant.js"></script>
 
 </body>
 </html>
